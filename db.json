@@ -1,0 +1,105 @@
+{
+  "users": [
+    {
+      "id": "48eb",
+      "name": "asifas",
+      "email": "asifmhmd20@gmail.com",
+      "password": "asifmhmd20@gmail.com",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "1",
+          "quantity": 6
+        },
+        {
+          "productId": "3",
+          "quantity": 1
+        },
+        {
+          "productId": "2",
+          "quantity": 1,
+          "size": "6"
+        }
+      ],
+      "wishlist": [],
+      "orders": [],
+      "created_at": "2025-07-07T08:56:19.242Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Nike Air jordan",
+      "price": 3499,
+      "category": "Men",
+      "description": "High-quality running shoes for men.",
+      "image": "/airjordan.avif",
+      "stock": 10
+    },
+    {
+      "id": "2",
+      "name": "Adidas Gazelle",
+      "price": 3999,
+      "category": "Women",
+      "description": "Premium running shoes for women.",
+      "image": "/gazelle.webp",
+      "stock": 8
+    },
+    {
+      "id": "3",
+      "name": "Nike Airforce 1",
+      "price": 2799,
+      "category": "Men",
+      "description": "Stylish sneakers for everyday wear.",
+      "image": "/af1.jpg",
+      "stock": 15
+    },
+    {
+      "id": "4",
+      "name": "Adidas Superstar",
+      "price": 3799,
+      "category": "Men",
+      "description": "Stylish sneakers for everyday wear.",
+      "image": "/adidas.avif",
+      "stock": 15
+    },
+    {
+      "id": "5",
+      "name": "Nike Air Washed Pink",
+      "price": 3499,
+      "category": "Men",
+      "description": "High-quality running shoes for men.",
+      "image": "/womanspink.jpg",
+      "stock": 10
+    },
+    {
+      "id": "6",
+      "name": "Nike Dunk",
+      "price": 2499,
+      "category": "Men",
+      "description": "High-quality running shoes for men.",
+      "image": "/nikedunk.avif",
+      "stock": 10
+    },
+    {
+      "id": "7",
+      "name": "Adidas Sampa",
+      "price": 3499,
+      "category": "Men",
+      "description": "High-quality running shoes for men.",
+      "image": "/sampa.jpg",
+      "stock": 10
+    },
+    {
+      "id": "8",
+      "name": "Nike Running",
+      "price": 4499,
+      "category": "Men",
+      "description": "High-quality running shoes for men.",
+      "image": "/nikeblue.jpg",
+      "stock": 10
+    }
+  ],
+  "orders": []
+}
