@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "48eb",
-      "name": "asifas",
+      "name": "asif",
       "email": "asifmhmd20@gmail.com",
       "password": "asifmhmd20@gmail.com",
       "role": "user",
@@ -14,17 +14,332 @@
         },
         {
           "productId": "3",
-          "quantity": 1
+          "quantity": 1,
+          "size": "7"
+        },
+        {
+          "productId": "1",
+          "quantity": 6,
+          "size": "9"
         },
         {
           "productId": "2",
+          "quantity": 2,
+          "size": "7"
+        },
+        {
+          "productId": "1",
           "quantity": 1,
-          "size": "6"
+          "size": "10"
+        }
+      ],
+      "wishlist": [],
+      "orders": [
+        {
+          "id": 1751964770228,
+          "items": [
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "6",
+              "productId": "2"
+            },
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "8",
+              "productId": "2"
+            }
+          ],
+          "total": 7998,
+          "shippingInfo": {
+            "name": "asif",
+            "address": "aa",
+            "phone": "22"
+          },
+          "status": "Pending",
+          "date": "2025-07-08T08:52:50.228Z"
+        },
+        {
+          "id": 1751965070564,
+          "items": [
+            {
+              "id": "3",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af1.jpg",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "10",
+              "productId": "3"
+            }
+          ],
+          "total": 2799,
+          "shippingInfo": {
+            "name": "adhil",
+            "address": "b",
+            "phone": "7888888777"
+          },
+          "status": "Pending",
+          "date": "2025-07-08T08:57:50.564Z"
+        },
+        {
+          "id": 1751967403102,
+          "items": [
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "10",
+              "productId": "1"
+            }
+          ],
+          "total": 3499,
+          "shippingInfo": {
+            "name": "aa",
+            "address": "ss",
+            "phone": "2"
+          },
+          "status": "Pending",
+          "date": "2025-07-08T09:36:43.102Z"
+        },
+        {
+          "id": 1752034921974,
+          "items": [
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 3,
+              "size": "9",
+              "productId": "1"
+            },
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 2,
+              "size": "10",
+              "productId": "1"
+            },
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 4,
+              "size": "7",
+              "productId": "1"
+            },
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "10",
+              "productId": "2"
+            },
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 2,
+              "size": "6",
+              "productId": "1"
+            }
+          ],
+          "total": 42488,
+          "shippingInfo": {
+            "name": "asif",
+            "address": "ss",
+            "phone": "22"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T04:22:01.974Z"
+        },
+        {
+          "id": 1752039285699,
+          "items": [
+            {
+              "id": "3",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af1.jpg",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "6",
+              "productId": "3"
+            },
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "7",
+              "productId": "1"
+            }
+          ],
+          "total": 6298,
+          "shippingInfo": {
+            "name": "hh",
+            "address": "hhhh",
+            "phone": "999"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T05:34:45.699Z"
+        }
+      ],
+      "created_at": "2025-07-07T08:56:19.242Z"
+    },
+    {
+      "id": "c27c",
+      "name": "asif44",
+      "email": "asifmhmd10@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "1",
+          "quantity": 1,
+          "size": "8"
         }
       ],
       "wishlist": [],
       "orders": [],
-      "created_at": "2025-07-07T08:56:19.242Z"
+      "created_at": "2025-07-09T07:10:22.621Z"
     }
   ],
   "products": [
@@ -35,7 +350,15 @@
       "category": "Men",
       "description": "High-quality running shoes for men.",
       "image": "/airjordan.avif",
-      "stock": 10
+      "stock": 10,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "2",
@@ -44,7 +367,15 @@
       "category": "Women",
       "description": "Premium running shoes for women.",
       "image": "/gazelle.webp",
-      "stock": 8
+      "stock": 8,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "3",
@@ -53,7 +384,15 @@
       "category": "Men",
       "description": "Stylish sneakers for everyday wear.",
       "image": "/af1.jpg",
-      "stock": 15
+      "stock": 15,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "4",
@@ -62,7 +401,15 @@
       "category": "Men",
       "description": "Stylish sneakers for everyday wear.",
       "image": "/adidas.avif",
-      "stock": 15
+      "stock": 15,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "5",
@@ -71,7 +418,15 @@
       "category": "Men",
       "description": "High-quality running shoes for men.",
       "image": "/womanspink.jpg",
-      "stock": 10
+      "stock": 10,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "6",
@@ -80,7 +435,15 @@
       "category": "Men",
       "description": "High-quality running shoes for men.",
       "image": "/nikedunk.avif",
-      "stock": 10
+      "stock": 10,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "7",
@@ -89,7 +452,15 @@
       "category": "Men",
       "description": "High-quality running shoes for men.",
       "image": "/sampa.jpg",
-      "stock": 10
+      "stock": 10,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     },
     {
       "id": "8",
@@ -98,7 +469,15 @@
       "category": "Men",
       "description": "High-quality running shoes for men.",
       "image": "/nikeblue.jpg",
-      "stock": 10
+      "stock": 10,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
     }
   ],
   "orders": []

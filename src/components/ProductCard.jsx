@@ -1,22 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ product}) {
+export default function ProductCard({ product }) {
+  const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    navigate(`/products/${product.id}`);
+  };
+
   return (
-    <div className="border rounded shadow hover:shadow-lg transition p-4 flex flex-col">
+    <div className="bg-white shadow rounded p-4">
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-48 object-cover mb-4"
+        className="w-full h-48 object-cover mb-2"
       />
-      <h2 className="text-lg font-semibold">{product.name}</h2>
-      <p className="text-gray-600">₹ {product.price}</p>
-      <Link
-        to={`/products/${product.id}`}
-        className="mt-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-center block"
-      >
-        View Details
-      </Link>
+      <h3 className="text-lg font-bold">{product.name}</h3>
+      <p className="text-gray-600 mb-4">₹ {product.price}</p>
+
+      <div className="text-center">
+        <button
+          onClick={handleViewDetails}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          View Details
+        </button>
+      </div>
     </div>
   );
 }
+
