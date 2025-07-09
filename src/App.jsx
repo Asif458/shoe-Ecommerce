@@ -1,4 +1,3 @@
-// App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
@@ -10,7 +9,7 @@ import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import ProductList from "./components/ProductList";
 import ProductDetails from "./pages/ProductDetails";
-import ProtectedRoute from "./components/ProtectedRoute"; // ✅
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -22,24 +21,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
 
           {/* 🔐 Protected Routes */}
-          <Route
-            path="/products"
-            element={
-              <ProtectedRoute>
-                <ProductList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/products/:id"
-            element={
-              <ProtectedRoute>
-                <ProductDetails />
-              </ProtectedRoute>
-            }
-          />
           <Route
             path="/cart"
             element={

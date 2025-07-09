@@ -7,32 +7,7 @@
       "password": "asifmhmd20@gmail.com",
       "role": "user",
       "isBlock": false,
-      "cart": [
-        {
-          "productId": "1",
-          "quantity": 6
-        },
-        {
-          "productId": "3",
-          "quantity": 1,
-          "size": "7"
-        },
-        {
-          "productId": "1",
-          "quantity": 6,
-          "size": "9"
-        },
-        {
-          "productId": "2",
-          "quantity": 2,
-          "size": "7"
-        },
-        {
-          "productId": "1",
-          "quantity": 1,
-          "size": "10"
-        }
-      ],
+      "cart": [],
       "wishlist": [],
       "orders": [
         {
@@ -319,6 +294,59 @@
           },
           "status": "Pending",
           "date": "2025-07-09T05:34:45.699Z"
+        },
+        {
+          "id": 1752047500042,
+          "items": [
+            {
+              "id": "3",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af1.jpg",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "7",
+              "productId": "3"
+            },
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "7",
+              "productId": "2"
+            }
+          ],
+          "total": 6798,
+          "shippingInfo": {
+            "name": "wqwwww",
+            "address": "s",
+            "phone": "22"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T07:51:40.042Z"
         }
       ],
       "created_at": "2025-07-07T08:56:19.242Z"

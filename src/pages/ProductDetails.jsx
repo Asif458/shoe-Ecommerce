@@ -24,14 +24,25 @@ export default function ProductDetails() {
   };
 
   const handleAddToCart = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
     if (!selectedSize) {
       alert("Please select a shoe size.");
       return;
     }
-    const user = JSON.parse(localStorage.getItem("user"));
-    await addToCart(user.id, product.id, selectedSize);
-    alert("Added to cart!");
-    navigate("/cart");
+
+    if (!user) {
+      alert("You need to login to add products to cart.");
+      return;
+    }
+
+    try {
+      await addToCart(user.id, product.id, selectedSize);
+      alert("Added to cart!");
+    } catch (err) {
+      console.error("Add to cart failed:", err);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   if (!product) return <p className="text-center mt-10">Loading...</p>;
