@@ -9,21 +9,6 @@
       "isBlock": false,
       "cart": [
         {
-          "productId": "1",
-          "quantity": 1,
-          "size": "6"
-        },
-        {
-          "productId": "1",
-          "quantity": 3,
-          "size": "7"
-        },
-        {
-          "productId": "1",
-          "quantity": 3,
-          "size": "8"
-        },
-        {
           "productId": "8",
           "quantity": 1,
           "size": "7"
@@ -47,6 +32,26 @@
           "productId": "2",
           "quantity": 1,
           "size": "7"
+        },
+        {
+          "productId": "2",
+          "quantity": 1,
+          "size": "6"
+        },
+        {
+          "productId": "3",
+          "quantity": 1,
+          "size": "9"
+        },
+        {
+          "productId": "6",
+          "quantity": 1,
+          "size": "9"
+        },
+        {
+          "productId": "4",
+          "quantity": 1,
+          "size": "9"
         }
       ],
       "wishlist": [],
