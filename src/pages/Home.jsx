@@ -43,7 +43,7 @@ export default function Home() {
             </p>
             <button
               onClick={() => navigate("/products")}
-              className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition"
+              className="mt-6 bg-gray-900 hover:bg-gray-700 text-white px-6 py-2 rounded-md transition"
             >
               Shop Now
             </button>

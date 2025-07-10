@@ -1,3 +1,4 @@
+// ✅ WishlistContext.jsx
 import React, { createContext, useEffect, useState } from "react";
 import api from "../services/api";
 
@@ -15,19 +16,20 @@ export default function WishlistProvider({ children }) {
     // eslint-disable-next-line
   }, []);
 
+  // ✅ Fetch full wishlist
   const fetchWishlist = async () => {
     try {
       const res = await api.get(`/users/${user.id}`);
-      const items = res.data.wishlist || [];
+      const wishlist = res.data.wishlist || [];
 
-      const productRequests = items.map((item) =>
+      const productRequests = wishlist.map((item) =>
         api.get(`/products/${item.productId}`)
       );
       const responses = await Promise.all(productRequests);
 
       const fullWishlist = responses.map((res, i) => ({
         ...res.data,
-        productId: items[i].productId,
+        productId: wishlist[i].productId,
       }));
 
       setWishlistItems(fullWishlist);
@@ -38,65 +40,85 @@ export default function WishlistProvider({ children }) {
     }
   };
 
+  // ✅ Add to wishlist
   const addToWishlist = async (product) => {
     if (!user) return;
 
-    const res = await api.get(`/users/${user.id}`);
-    const existingWishlist = res.data.wishlist || [];
+    try {
+      const res = await api.get(`/users/${user.id}`);
+      const wishlist = res.data.wishlist || [];
 
-    const alreadyInWishlist = existingWishlist.some(
-      (item) => item.productId === product.id
-    );
-    if (alreadyInWishlist) return;
+      const alreadyExists = wishlist.some(
+        (item) => item.productId === product.id
+      );
+      if (alreadyExists) return;
 
-    const updatedWishlist = [...existingWishlist, { productId: product.id }];
-    await api.patch(`/users/${user.id}`, { wishlist: updatedWishlist });
-    fetchWishlist();
+      const updatedWishlist = [...wishlist, { productId: product.id }];
+      await api.patch(`/users/${user.id}`, { wishlist: updatedWishlist });
+      fetchWishlist();
+    } catch (err) {
+      console.error("Error adding to wishlist:", err);
+    }
   };
 
+  // ❌ Remove from wishlist
   const removeFromWishlist = async (productId) => {
-    const res = await api.get(`/users/${user.id}`);
-    const updatedWishlist = res.data.wishlist.filter(
-      (item) => item.productId !== productId
-    );
-    await api.patch(`/users/${user.id}`, { wishlist: updatedWishlist });
-    fetchWishlist();
+    try {
+      const res = await api.get(`/users/${user.id}`);
+      const updatedWishlist = res.data.wishlist.filter(
+        (item) => item.productId !== productId
+      );
+
+      await api.patch(`/users/${user.id}`, { wishlist: updatedWishlist });
+      fetchWishlist();
+    } catch (err) {
+      console.error("Error removing from wishlist:", err);
+    }
   };
 
+  // 🔁 Move to cart
   const moveToCart = async (product) => {
-    const res = await api.get(`/users/${user.id}`);
-    const userData = res.data;
+    try {
+      const res = await api.get(`/users/${user.id}`);
+      const userData = res.data;
 
-    const existingCart = userData.cart || [];
+      const wishlist = userData.wishlist || [];
+      const cart = userData.cart || [];
 
-    const cartItem = existingCart.find(
-      (item) => item.productId === product.productId
-    );
+      const alreadyInCart = cart.find(
+        (item) => item.productId === product.productId
+      );
 
-    const updatedCart = cartItem
-      ? existingCart.map((item) =>
-          item.productId === product.productId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      : [...existingCart, { productId: product.productId, quantity: 1, size: "9" }];
+      const updatedCart = alreadyInCart
+        ? cart.map((item) =>
+            item.productId === product.productId
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        : [...cart, { productId: product.productId, quantity: 1, size: "8" }]; // 👟 default size
 
-    const updatedWishlist = userData.wishlist.filter(
-      (item) => item.productId !== product.productId
-    );
+      const updatedWishlist = wishlist.filter(
+        (item) => item.productId !== product.productId
+      );
 
-    await api.patch(`/users/${user.id}`, {
-      cart: updatedCart,
-      wishlist: updatedWishlist,
-    });
+      await api.patch(`/users/${user.id}`, {
+        cart: updatedCart,
+        wishlist: updatedWishlist,
+      });
 
-    fetchWishlist();
+      fetchWishlist();
+    } catch (err) {
+      console.error("Error moving to cart:", err);
+    }
   };
+
+  const wishlistCount = wishlistItems.length;
 
   return (
     <WishlistContext.Provider
       value={{
         wishlistItems,
+        wishlistCount,
         loading,
         refreshWishlist: fetchWishlist,
         addToWishlist,

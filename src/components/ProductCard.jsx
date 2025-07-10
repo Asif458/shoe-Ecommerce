@@ -20,7 +20,7 @@ export default function ProductCard({ product }) {
       <div className="text-center">
         <button
           onClick={handleViewDetails}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700"
         >
           View Details
         </button>

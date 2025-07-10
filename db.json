@@ -7,54 +7,12 @@
       "password": "asifmhmd20@gmail.com",
       "role": "user",
       "isBlock": false,
-      "cart": [
+      "cart": [],
+      "wishlist": [
         {
-          "productId": "8",
-          "quantity": 1,
-          "size": "7"
-        },
-        {
-          "productId": "8",
-          "quantity": 1,
-          "size": "8"
-        },
-        {
-          "productId": "8",
-          "quantity": 1,
-          "size": "9"
-        },
-        {
-          "productId": "5",
-          "quantity": 1,
-          "size": "6"
-        },
-        {
-          "productId": "2",
-          "quantity": 1,
-          "size": "7"
-        },
-        {
-          "productId": "2",
-          "quantity": 1,
-          "size": "6"
-        },
-        {
-          "productId": "3",
-          "quantity": 1,
-          "size": "9"
-        },
-        {
-          "productId": "6",
-          "quantity": 1,
-          "size": "9"
-        },
-        {
-          "productId": "4",
-          "quantity": 1,
-          "size": "9"
+          "productId": "7"
         }
       ],
-      "wishlist": [],
       "orders": [
         {
           "id": 1751964770228,
@@ -446,6 +404,132 @@
           },
           "status": "Pending",
           "date": "2025-07-09T08:35:39.143Z"
+        },
+        {
+          "id": 1752124242098,
+          "items": [
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "8",
+              "productId": "2"
+            }
+          ],
+          "total": 3999,
+          "shippingInfo": {
+            "name": "Cetirizine",
+            "address": "dnbsfdfbhd fsdvdf",
+            "phone": "7888888777"
+          },
+          "status": "Pending",
+          "date": "2025-07-10T05:10:42.098Z"
+        },
+        {
+          "id": 1752143721498,
+          "items": [
+            {
+              "id": "3",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 3,
+              "size": "8",
+              "productId": "3"
+            },
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/n.webp",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "7",
+              "productId": "1"
+            },
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "8",
+              "productId": "2"
+            },
+            {
+              "id": "7",
+              "name": "Adidas Samba",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/samba2.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "6",
+              "productId": "7"
+            }
+          ],
+          "total": 19394,
+          "shippingInfo": {
+            "name": "sinan",
+            "address": "kottakkal,kerala,india",
+            "phone": "987654345678"
+          },
+          "status": "Pending",
+          "date": "2025-07-10T10:35:21.498Z"
         }
       ],
       "created_at": "2025-07-07T08:56:19.242Z"
@@ -644,6 +728,28 @@
         }
       ],
       "created_at": "2025-07-09T09:16:21.368Z"
+    },
+    {
+      "id": "2b19",
+      "name": "sinan",
+      "email": "sinan123@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "7",
+          "quantity": 55,
+          "size": "7"
+        }
+      ],
+      "wishlist": [
+        {
+          "productId": "7"
+        }
+      ],
+      "orders": [],
+      "created_at": "2025-07-10T10:36:25.557Z"
     }
   ],
   "products": [
@@ -653,7 +759,7 @@
       "price": 3499,
       "category": "Men",
       "description": "High-quality running shoes for men.",
-      "image": "/airjordan.avif",
+      "image": "/n.webp",
       "stock": 10,
       "sizes": [
         "6",
@@ -687,7 +793,7 @@
       "price": 2799,
       "category": "Men",
       "description": "Stylish sneakers for everyday wear.",
-      "image": "/af1.jpg",
+      "image": "/af.avif",
       "stock": 15,
       "sizes": [
         "6",
@@ -721,7 +827,7 @@
       "price": 3499,
       "category": "Women",
       "description": "High-quality running shoes for men.",
-      "image": "/womanspink.jpg",
+      "image": "/pink.avif",
       "stock": 10,
       "sizes": [
         "6",
@@ -751,11 +857,11 @@
     },
     {
       "id": "7",
-      "name": "Adidas Sampa",
+      "name": "Adidas Samba",
       "price": 3499,
       "category": "Men",
       "description": "High-quality running shoes for men.",
-      "image": "/sampa.jpg",
+      "image": "/samba2.avif",
       "stock": 10,
       "sizes": [
         "6",
@@ -772,7 +878,7 @@
       "price": 4499,
       "category": "Men",
       "description": "High-quality running shoes for men.",
-      "image": "/nikeblue.jpg",
+      "image": "/nike.avif",
       "stock": 10,
       "sizes": [
         "6",

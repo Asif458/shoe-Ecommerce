@@ -223,7 +223,7 @@ export default function ProductDetails() {
                 key={size}
                 className={`border rounded px-3 py-1 text-sm ${
                   selectedSize === size
-                    ? "bg-blue-600 text-white border-blue-600"
+                    ? "bg-gray-600 text-white border-gray-600"
                     : "bg-white text-gray-700"
                 }`}
                 onClick={() => setSelectedSize(size)}
@@ -236,7 +236,7 @@ export default function ProductDetails() {
 
         <button
           onClick={handleAddToCart}
-          className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-gray-900 text-white px-5 py-2 rounded hover:bg-gray-700 transition"
         >
           Add to Cart
         </button>

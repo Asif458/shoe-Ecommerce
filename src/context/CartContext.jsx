@@ -1,4 +1,4 @@
-// ✅ CartContext.jsx (Improved with update & remove logic)
+
 import React, { createContext, useState, useEffect } from "react";
 import api from "../services/api";
 
@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
     // eslint-disable-next-line
   }, []);
 
-  // 🔄 Fetch cart from server
+  // Fetch usernte cart from db.jsnnn
   const fetchCart = async () => {
     try {
       const res = await api.get(`/users/${user.id}`);
@@ -76,6 +76,7 @@ export const CartProvider = ({ children }) => {
     setCartItems(updated);
     updateCart(updated);
   };
+
 
   return (
     <CartContext.Provider
