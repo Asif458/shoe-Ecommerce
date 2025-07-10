@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { addToCart } from "../services/cartService";
+import { toast } from "react-toastify";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -20,6 +21,7 @@ export default function ProductDetails() {
       setProduct(res.data);
     } catch (err) {
       console.error("Error fetching product:", err);
+      toast.error("Failed to load product.");
     }
   };
 
@@ -27,21 +29,24 @@ export default function ProductDetails() {
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!selectedSize) {
-      alert("Please select a shoe size.");
+      toast.warning("Please select a shoe size.");
       return;
     }
 
     if (!user) {
-      alert("You need to login to add products to cart.");
+      toast.info("Please login to add to cart.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
       return;
     }
 
     try {
       await addToCart(user.id, product.id, selectedSize);
-      alert("Added to cart!");
+      toast.success("Added to cart!");
     } catch (err) {
       console.error("Add to cart failed:", err);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
   };
 

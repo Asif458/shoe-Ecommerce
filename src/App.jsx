@@ -1,4 +1,8 @@
+// App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify"; // ✅ Toastify
+import "react-toastify/dist/ReactToastify.css"; // ✅ Toastify styles
+
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Signup from "./Auth/Signup";
@@ -9,22 +13,40 @@ import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import ProductList from "./components/ProductList";
 import ProductDetails from "./pages/ProductDetails";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute"; // ✅
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar />
+
+      {/* ✅ ToastContainer placed just after NavBar, outside Routes */}
+      <ToastContainer position="top-center" autoClose={2000} theme="colored" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Routes>
           {/* ✅ Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
 
           {/* 🔐 Protected Routes */}
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <ProductList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/:id"
+            element={
+              <ProtectedRoute>
+                <ProductDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/cart"
             element={

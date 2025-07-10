@@ -13,9 +13,9 @@ createRoot(document.getElementById("root")).render(
     <WishlistProvider>
       <CartProvider>
         <App />
-         <ToastContainer position="top-right"
+         {/* <ToastContainer position="top-right"
          autoClose={6000}
-         theme="colored"/>
+         theme="colored"/> */}
       </CartProvider>
     </WishlistProvider>
     </AuthProvider>

@@ -7,7 +7,48 @@
       "password": "asifmhmd20@gmail.com",
       "role": "user",
       "isBlock": false,
-      "cart": [],
+      "cart": [
+        {
+          "productId": "1",
+          "quantity": 1,
+          "size": "6"
+        },
+        {
+          "productId": "1",
+          "quantity": 3,
+          "size": "7"
+        },
+        {
+          "productId": "1",
+          "quantity": 3,
+          "size": "8"
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "size": "7"
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "size": "8"
+        },
+        {
+          "productId": "8",
+          "quantity": 1,
+          "size": "9"
+        },
+        {
+          "productId": "5",
+          "quantity": 1,
+          "size": "6"
+        },
+        {
+          "productId": "2",
+          "quantity": 1,
+          "size": "7"
+        }
+      ],
       "wishlist": [],
       "orders": [
         {
@@ -347,6 +388,59 @@
           },
           "status": "Pending",
           "date": "2025-07-09T07:51:40.042Z"
+        },
+        {
+          "id": 1752050139143,
+          "items": [
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "6",
+              "productId": "2"
+            },
+            {
+              "id": "4",
+              "name": "Adidas Superstar",
+              "price": 3799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/adidas.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "8",
+              "productId": "4"
+            }
+          ],
+          "total": 7798,
+          "shippingInfo": {
+            "name": "ss",
+            "address": "aaa",
+            "phone": "0000000000"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T08:35:39.143Z"
         }
       ],
       "created_at": "2025-07-07T08:56:19.242Z"
@@ -368,6 +462,183 @@
       "wishlist": [],
       "orders": [],
       "created_at": "2025-07-09T07:10:22.621Z"
+    },
+    {
+      "id": "d0a3",
+      "name": "c",
+      "email": "sample@gmail.com",
+      "password": "22",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "wishlist": [],
+      "orders": [],
+      "created_at": "2025-07-09T08:51:19.881Z"
+    },
+    {
+      "id": "91fa",
+      "name": "rr",
+      "email": "user@gmail.com",
+      "password": "2",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "wishlist": [],
+      "orders": [],
+      "created_at": "2025-07-09T08:52:43.658Z"
+    },
+    {
+      "id": "37cb",
+      "name": "par",
+      "email": "sample11113@gmail.com",
+      "password": "4",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "3",
+          "quantity": 1,
+          "size": "7"
+        }
+      ],
+      "wishlist": [],
+      "orders": [],
+      "created_at": "2025-07-09T09:05:16.046Z"
+    },
+    {
+      "id": "5580",
+      "name": "jbjbaj",
+      "email": "amxa@gmz.x.xmkm",
+      "password": "55",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "wishlist": [],
+      "orders": [],
+      "created_at": "2025-07-09T09:07:00.313Z"
+    },
+    {
+      "id": "e4a7",
+      "name": "Cetirizine",
+      "email": "samplse@gmail.com",
+      "password": "w",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "1",
+          "quantity": 2,
+          "size": "8"
+        },
+        {
+          "productId": "3",
+          "quantity": 1,
+          "size": "6"
+        }
+      ],
+      "wishlist": [],
+      "orders": [
+        {
+          "id": 1752056918022,
+          "items": [
+            {
+              "id": "2",
+              "name": "Adidas Gazelle",
+              "price": 3999,
+              "category": "Women",
+              "description": "Premium running shoes for women.",
+              "image": "/gazelle.webp",
+              "stock": 8,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "7",
+              "productId": "2"
+            }
+          ],
+          "total": 3999,
+          "shippingInfo": {
+            "name": "muhammed asif ",
+            "address": "nothinggg",
+            "phone": "8590551991"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T10:28:38.022Z"
+        },
+        {
+          "id": 1752057415898,
+          "items": [
+            {
+              "id": "3",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af1.jpg",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "9",
+              "productId": "3"
+            }
+          ],
+          "total": 2799,
+          "shippingInfo": {
+            "name": "ss",
+            "address": "ww",
+            "phone": "2"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T10:36:55.898Z"
+        },
+        {
+          "id": 1752059202292,
+          "items": [
+            {
+              "id": "1",
+              "name": "Nike Air jordan",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/airjordan.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "6",
+              "productId": "1"
+            }
+          ],
+          "total": 3499,
+          "shippingInfo": {
+            "name": "c",
+            "address": "as",
+            "phone": "55555555"
+          },
+          "status": "Pending",
+          "date": "2025-07-09T11:06:42.292Z"
+        }
+      ],
+      "created_at": "2025-07-09T09:16:21.368Z"
     }
   ],
   "products": [
@@ -443,7 +714,7 @@
       "id": "5",
       "name": "Nike Air Washed Pink",
       "price": 3499,
-      "category": "Men",
+      "category": "Women",
       "description": "High-quality running shoes for men.",
       "image": "/womanspink.jpg",
       "stock": 10,
