@@ -40,7 +40,7 @@ export default function WishlistProvider({ children }) {
     }
   };
 
-  // ✅ Add to wishlist
+   
   const addToWishlist = async (product) => {
     if (!user) return;
 
@@ -61,7 +61,7 @@ export default function WishlistProvider({ children }) {
     }
   };
 
-  // ❌ Remove from wishlist
+ 
   const removeFromWishlist = async (productId) => {
     try {
       const res = await api.get(`/users/${user.id}`);
@@ -76,7 +76,7 @@ export default function WishlistProvider({ children }) {
     }
   };
 
-  // 🔁 Move to cart
+ 
   const moveToCart = async (product) => {
     try {
       const res = await api.get(`/users/${user.id}`);

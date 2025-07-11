@@ -27,12 +27,12 @@ export default function ProtectedRoute({ children, role }) {
   const currentUser = user || stored;
 
   if (!currentUser || !currentUser.id) {
-    // 🚫 Not logged in
+    //  Not logged in
     return <Navigate to="/login" replace />;
   }
 
   if (role && currentUser.role !== role) {
-    // 🚫 Role doesn't match
+    //  Role doesn't match
     return <Navigate to="/" replace />;
   }
 

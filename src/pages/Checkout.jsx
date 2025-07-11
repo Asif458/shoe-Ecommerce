@@ -51,7 +51,7 @@ export default function Checkout() {
       });
 
       refreshCart(); // Refresh cart context
-      alert("✅ Order placed successfully!");
+      alert(" Order placed successfully!");
       navigate("/orders");
     } catch (err) {
       console.error("Error placing order:", err);
