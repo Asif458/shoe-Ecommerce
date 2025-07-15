@@ -5,28 +5,29 @@ import api from "../services/api"; // Make sure your API file is correct
 export default function Home() {
   const navigate = useNavigate();
   const [featured, setFeatured] = useState([]);
-  const [showShimmer, setShowShimmer] = useState(true);
+  // const [showShimmer, setShowShimmer] = useState(true); // Removed shimmer state
   const [scrollY, setScrollY] = useState(0);
 
+  // Categories with new, potentially more illustrative images for design
   const categories = [
-    { name: "Men", image: "/newmen.jpg" },
-    { name: "Women", image: "/woman.jpg" },
+    { name: "Men", image: "/newmen.jpg" },  
+    { name: "Women", image: "/woman.jpg" },  
   ];
+
+  // Make sure you have a video like this in your /public folder
+  const heroVideo = "/vid2.mp4"; // Example video for the banner
 
   useEffect(() => {
     fetchFeatured();
-    
-    // Shimmer loading duration
-    const shimmerTimer = setTimeout(() => {
-      setShowShimmer(false);
-    }, 2000);
 
-    // Parallax scrolling effect
+     
+
+    // Parallax scrolling effect (unchanged functionality)
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      clearTimeout(shimmerTimer);
+      // clearTimeout(shimmerTimer); // Removed shimmer cleanup
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -40,373 +41,298 @@ export default function Home() {
     }
   };
 
-  // Shimmer Loading Component
-  const ShimmerLoader = () => (
-    <div className="min-h-screen bg-gray-50 animate-pulse">
-      {/* Hero Section Shimmer */}
-      <div className="w-full h-[500px] bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-shimmer"></div>
-      
-      {/* Categories Shimmer */}
-      <div className="py-20 px-4 sm:px-8 md:px-16 lg:px-24">
-        <div className="text-center mb-16">
-          <div className="h-10 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-lg w-64 mx-auto mb-4 animate-shimmer"></div>
-          <div className="w-24 h-1 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 mx-auto rounded-full animate-shimmer"></div>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {[1, 2].map((item) => (
-            <div key={item} className="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-200">
-              <div className="h-64 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-shimmer"></div>
-              <div className="p-8 text-center">
-                <div className="h-6 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-lg w-32 mx-auto mb-4 animate-shimmer"></div>
-                <div className="h-10 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-full w-40 mx-auto animate-shimmer"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Featured Products Shimmer */}
-      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-20 bg-gradient-to-r from-gray-50 to-gray-100">
-        <div className="text-center mb-16">
-          <div className="h-10 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-lg w-64 mx-auto mb-4 animate-shimmer"></div>
-          <div className="w-24 h-1 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 mx-auto rounded-full animate-shimmer"></div>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
-              <div className="h-52 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-shimmer"></div>
-              <div className="p-6">
-                <div className="h-5 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-lg w-32 mb-2 animate-shimmer"></div>
-                <div className="h-5 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-lg w-20 mb-4 animate-shimmer"></div>
-                <div className="h-10 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-full w-full animate-shimmer"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  if (showShimmer) {
-    return <ShimmerLoader />;
-  }
+ 
 
   return (
-    <div className="bg-gradient-to-b from-gray-100 to-white min-h-screen w-full overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-        <div className="absolute top-3/4 right-1/4 w-72 h-72 bg-gray-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen w-full overflow-hidden relative">
+      {/* Dynamic Animated Background Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-1/4 left-[10%] w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute top-1/2 right-[15%] w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-1/4 left-[30%] w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Enhanced Banner */}
-      <div className="relative w-full h-[240px] sm:h-[350px] md:h-[420px] lg:h-[500px] overflow-hidden">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+      {/* Enhanced Hero Banner with Video & Parallax */}
+      <header className="relative w-full h-[300px] sm:h-[400px] md:h-[550px] lg:h-[700px] flex items-center justify-center overflow-hidden shadow-xl z-10">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ transform: `translateY(${scrollY * 0.4}px)` }} // Adjusted parallax strength
         >
-          <source src="/vid3.mp4" type="video/mp4" />
+          <source src={heroVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent"></div>
-        
-        <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
-          <div className="text-white z-10 max-w-2xl animate-fade-in-up">
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
-              Step into Style with{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-100 animate-gradient">
-                ShoeVerse
-              </span>
-            </h1>
-            <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-300 opacity-90 animate-fade-in-up animation-delay-300">
-              Discover premium shoes for Men and Women. Trendy, affordable, and durable.
-            </p>
-            <button
-              onClick={() => navigate("/products")}
-              className="mt-6 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-500 group border border-gray-700"
-            >
-              <span className="flex items-center gap-2">
-                <span className="text-2xl group-hover:animate-bounce">🛍️</span>
-                Shop Now
-              </span>
-            </button>
-          </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/60 to-transparent z-10"></div>
+
+        <div className="relative z-20 text-white text-center px-4 max-w-4xl animate-fade-in-up">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 tracking-tight drop-shadow-lg">
+            Elevate Your Stride with{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 animate-gradient-text">
+              ShoeVerse
+            </span>
+          </h1>
+          <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-200 opacity-90 leading-relaxed animate-fade-in-up animation-delay-300 drop-shadow-md">
+            Discover the perfect pair that blends style, comfort, and unmatched durability.
+          </p>
+          <button
+            onClick={() => navigate("/products")}
+            // Changed button color to bg-slate-900, adjusted hover, border, and ring colors
+            className="mt-10 inline-flex items-center gap-3 bg-slate-900 text-white font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-400 ease-in-out animate-fade-in-up animation-delay-500 group border border-slate-700 focus:outline-none focus:ring-4 focus:ring-slate-500 hover:bg-slate-800"
+          >
+            <span className="text-3xl group-hover:animate-jump">👟</span> {/* Larger emoji with jump animation */}
+            Shop Our Latest Collection
+          </button>
         </div>
+      </header>
 
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 left-1/4 text-4xl animate-float opacity-20">👟</div>
-        <div className="absolute top-3/4 right-1/4 text-3xl animate-float-delayed opacity-20">✨</div>
-      </div>
-
-      {/* Enhanced Categories */}
-      <div className="w-full py-20 px-4 sm:px-8 md:px-16 lg:px-24 relative">
+      {/* --- Enhanced Categories Section --- */}
+      <section className="w-full py-24 px-4 sm:px-8 md:px-16 lg:px-24 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-800 animate-fade-in-up">
-            Shop by Category
+          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4 text-gray-900 animate-fade-in-up">
+            Categories For You
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-gray-700 to-gray-900 mx-auto rounded-full"></div>
+          <div className="w-32 h-2 bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {categories.map((cat, index) => (
             <div
               key={cat.name}
-              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 animate-fade-in-up border border-gray-200"
-              style={{ animationDelay: `${index * 200}ms` }}
+              className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-4 animate-fade-in-up border border-gray-100 relative"
+              style={{ animationDelay: `${index * 200 + 200}ms` }} // Staggered animation
             >
               <div className="relative overflow-hidden">
-                <img 
-                  src={cat.image} 
-                  alt={cat.name} 
-                  className="h-64 w-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="h-72 w-full object-cover group-hover:scale-115 transition-transform duration-700 ease-in-out" // More aggressive zoom
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  <span className="text-2xl">
-                    {cat.name === "Men" ? "👨" : "👩"}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> {/* Darker overlay */}
+                <div className="absolute top-6 right-6 bg-white/30 backdrop-blur-md rounded-full p-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0 shadow-lg"> {/* Larger, blurred floating icon */}
+                  <span className="text-4xl">
+                    {cat.name === "Men" ? "👨‍🦰" : "👩‍🦱"} {/* More specific emojis */}
                   </span>
                 </div>
               </div>
               <div className="p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
-                  {cat.name}'s Shoes
+                <h3 className="text-3xl font-bold mb-4 text-gray-800 group-hover:text-purple-700 transition-colors duration-300">
+                  {cat.name}'s Collection
                 </h3>
                 <button
                   onClick={() => navigate(`/products?category=${cat.name}`)}
-                  className="px-8 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-full hover:from-gray-700 hover:to-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  // Changed button color to bg-slate-900, adjusted hover
+                  className="inline-flex items-center gap-2 px-10 py-4 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all duration-400 transform hover:scale-105 shadow-lg hover:shadow-xl font-semibold"
                 >
-                  Explore {cat.name}
+                  Shop {cat.name} <span className="text-xl">→</span>
                 </button>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Enhanced Featured Products */}
-      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-20 bg-gradient-to-r from-gray-50 to-gray-100 relative">
+      {/* --- Enhanced Featured Products Section --- */}
+      <section className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-24 bg-gradient-to-r from-gray-50 to-gray-100 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-800 animate-fade-in-up">
-            Featured Shoes
+          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4 text-gray-900 animate-fade-in-up">
+            Our Best Sellers
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-gray-700 to-gray-900 mx-auto rounded-full"></div>
+          <div className="w-32 h-2 bg-gradient-to-r from-indigo-500 to-blue-500 mx-auto rounded-full"></div>
         </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
           {featured.map((product, index) => (
             <div
               key={product.id}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 animate-fade-in-up border border-gray-200"
-              style={{ animationDelay: `${index * 150}ms` }}
+              className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-4 animate-fade-in-up border border-gray-100 relative"
+              style={{ animationDelay: `${index * 150 + 200}ms` }} // Staggered animation
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden h-60"> {/* Fixed height for image container */}
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="h-52 w-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="h-full w-full object-cover group-hover:scale-115 transition-transform duration-700 ease-in-out" // More aggressive zoom
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  <span className="text-lg">❤️</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 shadow-md">
+                  <span className="text-xl">❤️</span>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-2 text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
+              <div className="p-6 text-center"> {/* Centered product info */}
+                <h3 className="font-bold text-xl mb-2 text-gray-800 group-hover:text-blue-700 transition-colors duration-300">
                   {product.name}
                 </h3>
-                <p className="text-gray-600 text-lg font-semibold mb-4">₹{product.price}</p>
+                <p className="text-gray-700 text-2xl font-extrabold mb-4">₹{product.price}</p> {/* Larger price */}
                 <button
                   onClick={() => navigate(`/product/${product.id}`)}
-                  className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white py-3 rounded-full text-sm font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  // Changed button color to bg-slate-900, adjusted hover
+                  className="w-full inline-flex items-center justify-center gap-2 bg-slate-900 text-white py-3 rounded-full text-lg font-semibold hover:bg-slate-800 transition-all duration-400 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  View Details
+                  View Details <span className="text-xl">→</span>
                 </button>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Enhanced Newsletter */}
-      <div className="bg-gradient-to-r from-gray-800 to-gray-900 py-16 text-center px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gray-900/20"></div>
+      {/* --- Call to Action / Newsletter Section --- */}
+      <section className="bg-gradient-to-br from-indigo-700 to-purple-800 py-20 text-center px-4 relative overflow-hidden shadow-inner z-10">
+        <div className="absolute inset-0 bg-black/10"></div> {/* Subtle dark overlay */}
         <div className="relative z-10">
-          <h3 className="text-3xl font-bold text-white mb-4 animate-fade-in-up">
-            Stay in the Loop
+          <h3 className="text-4xl sm:text-5xl font-extrabold text-white mb-6 animate-fade-in-up">
+            Never Miss a Step
           </h3>
-          <p className="text-gray-300 text-lg mb-8 animate-fade-in-up animation-delay-200">
-            Get updates on new arrivals and special offers!
+          <p className="text-gray-200 text-lg sm:text-xl mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-200">
+            Sign up for our newsletter to get exclusive deals, new arrivals, and style tips delivered straight to your inbox.
           </p>
-          <div className="flex justify-center max-w-md mx-auto animate-fade-in-up animation-delay-400">
+          <form className="flex flex-col sm:flex-row justify-center max-w-lg mx-auto gap-4 animate-fade-in-up animation-delay-400">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-l-full border-none focus:outline-none focus:ring-2 focus:ring-gray-500 text-gray-800 placeholder-gray-500"
+              placeholder="Your email address"
+              className="flex-1 px-6 py-4 rounded-full border-2 border-white/30 focus:outline-none focus:ring-4 focus:ring-white/50 bg-white/10 text-white placeholder-gray-300 text-lg transition-all duration-300"
+              aria-label="Email for newsletter"
             />
-            <button className="px-8 py-4 bg-white text-gray-800 rounded-r-full hover:bg-gray-100 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
-              Subscribe
+            <button
+              // Changed button color to bg-slate-900, text to white, adjusted hover
+              className="px-8 py-4 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Subscribe Now
             </button>
-          </div>
+          </form>
         </div>
-      </div>
+      </section>
 
-      {/* Enhanced Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-16 px-4 sm:px-8 md:px-16 lg:px-24 relative">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+      {/* --- Enhanced Footer --- */}
+      <footer className="bg-gray-950 text-gray-300 py-16 px-4 sm:px-8 md:px-16 lg:px-24 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 max-w-7xl mx-auto">
           <div className="animate-fade-in-up">
-            <h4 className="text-white font-bold mb-4 text-xl">ShoeVerse</h4>
-            <p className="text-gray-400 leading-relaxed">Step into comfort and style with our premium collection.</p>
+            <h4 className="text-white font-extrabold mb-6 text-2xl tracking-wide">ShoeVerse</h4>
+            <p className="text-gray-400 leading-relaxed text-sm">Your ultimate destination for stylish and comfortable footwear. Step into a world where quality meets fashion.</p>
           </div>
           <div className="animate-fade-in-up animation-delay-200">
-            <h4 className="text-white font-bold mb-4 text-lg">Quick Links</h4>
+            <h4 className="text-white font-bold mb-6 text-xl">Quick Links</h4>
             <ul className="space-y-3">
-              <li><button onClick={() => navigate("/")} className="text-gray-400 hover:text-white transition-colors duration-300">Home</button></li>
-              <li><button onClick={() => navigate("/products")} className="text-gray-400 hover:text-white transition-colors duration-300">Shop</button></li>
-              <li><button onClick={() => navigate("/cart")} className="text-gray-400 hover:text-white transition-colors duration-300">Cart</button></li>
-              <li><button onClick={() => navigate("/contact")} className="text-gray-400 hover:text-white transition-colors duration-300">Contact</button></li>
+              <li><button onClick={() => navigate("/")} className="text-gray-400 hover:text-white transition-colors duration-300 text-base">Home</button></li>
+              <li><button onClick={() => navigate("/products")} className="text-gray-400 hover:text-white transition-colors duration-300 text-base">Shop All</button></li>
+              <li><button onClick={() => navigate("/cart")} className="text-gray-400 hover:text-white transition-colors duration-300 text-base">Cart</button></li>
+              <li><button onClick={() => navigate("/orders")} className="text-gray-400 hover:text-white transition-colors duration-300 text-base">Orders</button></li>
+              <li><button onClick={() => navigate("/contact")} className="text-gray-400 hover:text-white transition-colors duration-300 text-base">Contact Us</button></li>
             </ul>
           </div>
           <div className="animate-fade-in-up animation-delay-400">
-            <h4 className="text-white font-bold mb-4 text-lg">Categories</h4>
+            <h4 className="text-white font-bold mb-6 text-xl">Shop Categories</h4>
             <ul className="space-y-3">
-              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer">Men</li>
-              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer">Women</li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer text-base">Men's Footwear</li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer text-base">Women's Footwear</li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer text-base">New Arrivals</li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer text-base">Best Sellers</li>
             </ul>
           </div>
           <div className="animate-fade-in-up animation-delay-600">
-            <h4 className="text-white font-bold mb-4 text-lg">Follow Us</h4>
-            <ul className="space-y-3">
-              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer">Instagram</li>
-              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer">Facebook</li>
-              <li className="text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer">Twitter</li>
-            </ul>
+            <h4 className="text-white font-bold mb-6 text-xl">Connect With Us</h4>
+            {/* <div className="flex space-x-4 mb-6">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-500 transition-colors duration-300 text-3xl">📸</a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors duration-300 text-3xl">👍</a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-3xl">🐦</a>
+            </div> */}
+            <p className="text-gray-400 text-sm">Email: info@shoeverse.com</p>
+            <p className="text-gray-400 text-sm">Phone: +91 98765 43210</p>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-          <p className="text-gray-500 animate-fade-in-up animation-delay-800">
-            © {new Date().getFullYear()} ShoeVerse. All rights reserved.
+        <div className="mt-16 pt-8 border-t border-gray-800 text-center">
+          <p className="text-gray-500 text-sm animate-fade-in-up animation-delay-800">
+            © {new Date().getFullYear()} ShoeVerse. All rights reserved.  
           </p>
         </div>
       </footer>
 
+      {/* --- Custom CSS Animations (unchanged) --- */}
       <style jsx>{`
+        /* Shimmer Animation (kept for reference, but not used in rendering) */
         @keyframes shimmer {
-          0% {
-            background-position: -200px 0;
-          }
-          100% {
-            background-position: calc(200px + 100%) 0;
-          }
+          0% { background-position: -500px 0; }
+          100% { background-position: 500px 0; }
+        }
+        .animate-shimmer {
+          background-size: 1000px 100%;
+          animation: shimmer 1.5s infinite linear;
         }
 
+        /* Fade-in-up Animation */
         @keyframes fade-in-up {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
           }
         }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-15px); }
-        }
-
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        .animate-shimmer {
-          background: linear-gradient(110deg, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
-          background-size: 200px 100%;
-          animation: shimmer 1.5s ease-in-out infinite;
-        }
-
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
+          animation: fade-in-up 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Smoother curve */
+          opacity: 0; /* Ensures it starts invisible */
         }
 
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
+        /* Blob Animation for background shapes */
+        @keyframes blob {
+          0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+          14% { border-radius: 50% 50% 30% 70% / 50% 50% 50% 50%; }
+          28% { border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%; }
+          42% { border-radius: 70% 30% 60% 40% / 70% 40% 60% 30%; }
+          56% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        .animate-blob {
+          animation: blob 8s infinite alternate ease-in-out;
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+
+        /* Gradient Text Animation */
+        @keyframes gradient-text {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+        .animate-gradient-text {
+          background-size: 200% auto;
+          animation: gradient-text 3s linear infinite alternate;
         }
 
-        .animate-float-delayed {
-          animation: float-delayed 3s ease-in-out infinite;
-          animation-delay: 1s;
+        /* Button Jump Animation */
+        @keyframes jump {
+          0%, 100% { transform: translateY(0); }
+          25% { transform: translateY(-5px); }
+          50% { transform: translateY(0); }
+          75% { transform: translateY(-2px); }
+        }
+        .group:hover .group-hover:animate-jump {
+          animation: jump 0.6s ease-in-out;
         }
 
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 3s ease infinite;
+        /* Global transition for consistency */
+        * {
+          box-sizing: border-box;
         }
 
-        .animation-delay-200 {
-          animation-delay: 200ms;
-        }
-
-        .animation-delay-300 {
-          animation-delay: 300ms;
-        }
-
-        .animation-delay-400 {
-          animation-delay: 400ms;
-        }
-
-        .animation-delay-500 {
-          animation-delay: 500ms;
-        }
-
-        .animation-delay-600 {
-          animation-delay: 600ms;
-        }
-
-        .animation-delay-800 {
-          animation-delay: 800ms;
-        }
-
-        .animation-delay-2000 {
-          animation-delay: 2000ms;
-        }
-
-        /* Smooth scrolling */
-        html {
-          scroll-behavior: smooth;
-        }
-
-        /* Custom scrollbar to match theme */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
-          width: 8px;
+          width: 10px;
         }
-
         ::-webkit-scrollbar-track {
-          background: #f1f5f9;
+          background: #e2e8f0; /* Light gray for track */
         }
-
         ::-webkit-scrollbar-thumb {
-          background: linear-gradient(45deg, #374151, #1f2937);
+          background: linear-gradient(45deg, #6b46c1, #805ad5); /* Purple gradient */
           border-radius: 10px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(45deg, #4b5563, #374151);
+          background: linear-gradient(45deg, #553c9a, #6b46c1); /* Darker purple on hover */
         }
       `}</style>
     </div>

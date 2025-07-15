@@ -1,24 +1,23 @@
- 
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { addToCart } from "../services/cartService";
 import { toast } from "react-toastify";
 import { WishlistContext } from "../context/WishlistContext";
+import { CartContext } from "../context/CartContext"; // ✅ ADDED
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { ShoppingCart, ArrowLeft, Ruler } from "lucide-react";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
-
   const { wishlistItems, addToWishlist } = useContext(WishlistContext);
+  const { refreshCart } = useContext(CartContext); // ✅ ADDED
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const isInWishlist = wishlistItems.some(
-    (item) => item.id === product?.id
-  );
+  const isInWishlist = wishlistItems.some((item) => item.id === product?.id);
 
   useEffect(() => {
     fetchProduct();
@@ -40,17 +39,14 @@ export default function ProductDetails() {
       toast.warning("Please select a shoe size.");
       return;
     }
-
     if (!user) {
       toast.info("Please login to add to cart.");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+      setTimeout(() => navigate("/login"), 1500);
       return;
     }
-
     try {
       await addToCart(user.id, product.id, selectedSize);
+      refreshCart(); // ✅ CRUCIAL LINE TO REFRESH CONTEXT
       toast.success("Added to cart!");
     } catch (err) {
       console.error("Add to cart failed:", err);
@@ -61,15 +57,9 @@ export default function ProductDetails() {
   const handleWishlistClick = async () => {
     if (!user) {
       toast.info("Please login to add to wishlist.");
-      navigate("/login");
-      return;
+      return navigate("/login");
     }
-
-    if (isInWishlist) {
-      toast.info("Already in wishlist.");
-      return;
-    }
-
+    if (isInWishlist) return toast.info("Already in wishlist.");
     try {
       await addToWishlist(product);
       toast.success("Added to wishlist!");
@@ -79,71 +69,90 @@ export default function ProductDetails() {
     }
   };
 
-  if (!product) return <p className="text-center mt-10">Loading...</p>;
+  if (!product)
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-50">
+        <p className="text-xl text-gray-600">Loading product details...</p>
+      </div>
+    );
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
-      <div className="relative">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-[400px] object-cover rounded-lg shadow"
-        />
-        {/*  Wishlist Button */}
-        <button
-          onClick={handleWishlistClick}
-          className="absolute top-4 right-4 text-2xl"
-        >
-          {isInWishlist ? (
-            <AiFillHeart className="text-red-500" />
-          ) : (
-            <AiOutlineHeart className="text-gray-500 hover:text-red-500" />
-          )}
-        </button>
-      </div>
-
-      <div>
-        <h2 className="text-3xl font-bold text-gray-800">{product.name}</h2>
-        <p className="text-lg text-gray-500 mt-2 mb-4">₹ {product.price}</p>
-        <p className="text-gray-600 mb-6">{product.description}</p>
-
-        {/* Size Selector */}
-        <div className="mb-4">
-          <label className="font-semibold text-gray-700 block mb-1">
-            Select Size:
-          </label>
-          <div className="flex gap-2 flex-wrap">
-            {["6", "7", "8", "9", "10", "11"].map((size) => (
-              <button
-                key={size}
-                className={`border rounded px-3 py-1 text-sm ${
-                  selectedSize === size
-                    ? "bg-gray-600 text-white border-gray-600"
-                    : "bg-white text-gray-700"
-                }`}
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl w-full bg-white rounded-3xl shadow-xl overflow-hidden md:grid md:grid-cols-2 gap-12 p-8 lg:p-12 animate-fade-in-up">
+        {/* Product Image */}
+        <div className="relative group flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 shadow-inner">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full max-h-[500px] object-contain rounded-lg transform group-hover:scale-105 transition duration-700 ease-in-out"
+          />
+          <button
+            onClick={handleWishlistClick}
+            className="absolute top-6 right-6 text-4xl p-3 rounded-full bg-white shadow-lg hover:scale-115 transition-all duration-300 transform ring-2 ring-gray-100 focus:outline-none focus:ring-blue-300"
+            aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+          >
+            {isInWishlist ? (
+              <AiFillHeart className="text-red-500" />
+            ) : (
+              <AiOutlineHeart className="text-gray-400 hover:text-red-500" />
+            )}
+          </button>
         </div>
 
-        <button
-          onClick={handleAddToCart}
-          className="bg-gray-900 text-white px-5 py-2 rounded hover:bg-gray-700 transition"
-        >
-          Add to Cart
-        </button>
+        {/* Product Details */}
+        <div className="flex flex-col justify-between py-6">
+          <div>
+            <h2 className="text-5xl font-extrabold text-gray-900 mb-3 leading-tight">
+              {product.name}
+            </h2>
+            <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              ₹ {product.price}
+            </p>
+            <p className="text-gray-700 mb-8 leading-relaxed text-lg">{product.description}</p>
 
-        <button
-          onClick={() => navigate(-1)}
-          className="ml-4 text-gray-500 hover:underline"
-        >
-          ← Back
-        </button>
+            {/* Size Selector */}
+            <div className="mb-8">
+              <label className="font-bold text-gray-800 flex items-center gap-3 mb-4 text-xl">
+                <Ruler size={24} className="text-blue-500" /> Select Size:
+              </label>
+              <div className="flex gap-4 flex-wrap">
+                {["6", "7", "8", "9", "10", "11"].map((size) => (
+                  <button
+                    key={size}
+                    className={`px-6 py-3 border-2 rounded-full font-semibold text-lg transition-all duration-300 ease-in-out shadow-md
+                      ${
+                        selectedSize === size
+                          ? "bg-blue-600 text-white border-blue-600 transform scale-105"
+                          : "bg-white text-gray-800 border-gray-300 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600"
+                      }`}
+                    onClick={() => setSelectedSize(size)}
+                    aria-pressed={selectedSize === size}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex items-center gap-6 mt-8">
+            <button
+              onClick={handleAddToCart}
+              className="flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 active:scale-95"
+            >
+              <ShoppingCart size={20} /> Add to Cart
+            </button>
+
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-all duration-300 hover:underline text-base font-medium"
+            >
+              <ArrowLeft size={18} /> Back to Products
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-

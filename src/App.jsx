@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// user
+// user components
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Signup from "./Auth/Signup";
@@ -14,34 +14,37 @@ import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import ProductList from "./components/ProductList";
 import ProductDetails from "./pages/ProductDetails";
+import ChangePassword from "./components/ChangePassword";
 
-// admin
+// admin components
 import Dashboard from "./admin/Dashboard";
 import Products from "./admin/Products";
 import Orders from "./admin/Orders";
 import Users from "./admin/Users";
 import EditProduct from "./admin/EditProduct";
 import AddProduct from "./admin/AddProduct";
-import AdminLayout from "./admin/AdminLayout"; // ✅ new layout
+import AdminLayout from "./admin/AdminLayout";
 
-// Layout wrapper to hide NavBar on admin pages
+// layout wrapper to hide NavBar on admin pages
 function LayoutWrapper() {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
 
   return (
     <>
+      {/* User NavBar (hidden for admin routes) */}
       {!isAdminPage && <NavBar />}
 
+      {/* Toast Notifications */}
       <ToastContainer position="top-center" autoClose={2000} theme="colored" />
 
       <Routes>
-        {/* ✅ Public user routes */}
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ Protected user routes */}
+        {/* Protected User Routes */}
         <Route
           path="/products"
           element={
@@ -90,8 +93,16 @@ function LayoutWrapper() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/change-password"
+          element={
+            <ProtectedRoute>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* ✅ Admin routes wrapped with AdminLayout to keep sidebar fixed */}
+        {/* Admin Routes with Sidebar Layout */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />

@@ -1,4 +1,4 @@
-//  WishlistContext.jsx
+// WishlistContext.jsx
 import React, { createContext, useEffect, useState } from "react";
 import api from "../services/api";
 
@@ -16,7 +16,7 @@ export default function WishlistProvider({ children }) {
     // eslint-disable-next-line
   }, []);
 
-  //  Fetch full wishlist
+  // ✅ Fetch full wishlist
   const fetchWishlist = async () => {
     try {
       const res = await api.get(`/users/${user.id}`);
@@ -40,7 +40,7 @@ export default function WishlistProvider({ children }) {
     }
   };
 
-   
+  // ✅ Add to wishlist
   const addToWishlist = async (product) => {
     if (!user) return;
 
@@ -61,7 +61,7 @@ export default function WishlistProvider({ children }) {
     }
   };
 
- 
+  // ✅ Remove from wishlist
   const removeFromWishlist = async (productId) => {
     try {
       const res = await api.get(`/users/${user.id}`);
@@ -76,7 +76,7 @@ export default function WishlistProvider({ children }) {
     }
   };
 
- 
+  // ✅ Move to cart
   const moveToCart = async (product) => {
     try {
       const res = await api.get(`/users/${user.id}`);
@@ -95,7 +95,7 @@ export default function WishlistProvider({ children }) {
               ? { ...item, quantity: item.quantity + 1 }
               : item
           )
-        : [...cart, { productId: product.productId, quantity: 1, size: "8" }];  
+        : [...cart, { productId: product.productId, quantity: 1, size: "8" }];
 
       const updatedWishlist = wishlist.filter(
         (item) => item.productId !== product.productId
@@ -112,6 +112,11 @@ export default function WishlistProvider({ children }) {
     }
   };
 
+  // ✅ Check if a product is in wishlist
+  const isInWishlist = (productId) => {
+    return wishlistItems.some((item) => item.id === productId || item.productId === productId);
+  };
+
   const wishlistCount = wishlistItems.length;
 
   return (
@@ -124,6 +129,7 @@ export default function WishlistProvider({ children }) {
         addToWishlist,
         removeFromWishlist,
         moveToCart,
+        isInWishlist, // ✅ include this
       }}
     >
       {children}

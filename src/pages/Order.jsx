@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
+import {
+  Package, // For order icon
+  Truck, // For shipping status
+  CheckCircle, // For delivered status
+  Clock, // For pending/processing status
+  ArrowLeft, // For empty state button
+  IndianRupee, // For total price
+} from "lucide-react"; // Import modern icons
 
 export default function Order() {
   const [orders, setOrders] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    if (user) fetchOrders();
+    if (user && user.id) { // Ensure user.id exists before fetching
+      fetchOrders();
+    } else {
+      console.warn("User not logged in or user ID not found.");
+      // Optionally redirect to login or show a message
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [user?.id]); // Depend on user.id to refetch if user changes
 
   const fetchOrders = async () => {
     try {
@@ -16,53 +29,148 @@ export default function Order() {
       setOrders(res.data.orders || []);
     } catch (err) {
       console.error("Error loading orders:", err);
+      // Handle error, e.g., show a user-friendly message
+    }
+  };
+
+  // Helper to determine status color/icon
+  const getStatusInfo = (status) => {
+    switch (status.toLowerCase()) {
+      case "delivered":
+        return { color: "text-green-600", icon: <CheckCircle size={16} /> };
+      case "shipped":
+      case "out for delivery":
+        return { color: "text-blue-600", icon: <Truck size={16} /> };
+      case "processing":
+      case "pending":
+        return { color: "text-yellow-600", icon: <Clock size={16} /> };
+      case "cancelled":
+        return { color: "text-red-600", icon: <Trash2 size={16} /> }; // Re-using Trash2 for cancelled
+      default:
+        return { color: "text-gray-600", icon: <Package size={16} /> };
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6 text-center">Your Orders</h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8 animate-fade-in-up">
+      {/* Page Title */}
+      <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-10 text-center w-full flex items-center justify-center gap-4">
+        <Package size={48} className="text-blue-600" /> {/* Order icon for title */}
+        Your Orders
+      </h1>
 
+      {/* Empty Orders State */}
       {orders.length === 0 ? (
-        <p className="text-center text-gray-500">You have no orders yet.</p>
+        <div className="flex flex-col items-center justify-center bg-white p-10 rounded-2xl shadow-lg border border-gray-100 max-w-md w-full text-center animate-fade-in">
+          <Package size={64} className="text-gray-400 mb-6" /> {/* Larger icon */}
+          <p className="text-xl text-gray-600 font-medium mb-6">
+            You haven't placed any orders yet.
+          </p>
+          <button
+            onClick={() => window.history.back()} // Go back to previous page
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-7 py-3 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 active:scale-95"
+          >
+            <ArrowLeft size={20} /> Go Back
+          </button>
+        </div>
       ) : (
-        <div className="space-y-6">
-          {orders.map((order) => (
-            <div
-              key={order.id}
-              className="bg-white shadow rounded p-4 space-y-3 border"
-            >
-              <div className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold">Order #{order.id}</h2>
-                <span className="text-sm text-gray-500">
-                  {new Date(order.date).toLocaleDateString()}
-                </span>
-              </div>
+        <div className="space-y-6 max-w-4xl w-full"> {/* Increased max-width for better display */}
+          {orders.map((order) => {
+            const statusInfo = getStatusInfo(order.status);
+            return (
+              <div
+                key={order.id}
+                className="bg-white shadow-lg rounded-2xl p-6 space-y-4 border border-gray-100 transform transition-all duration-300 hover:scale-[1.005] hover:shadow-xl animate-fade-in-up"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-center pb-3 border-b border-gray-100">
+                  <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                    <Package size={20} className="text-blue-500" />
+                    Order <span className="text-blue-600">#{order.id}</span>
+                  </h2>
+                  <span className="text-sm font-medium text-gray-500">
+                    {new Date(order.date).toLocaleDateString("en-IN", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
 
-              <div className="text-sm text-gray-600">
-                <p><strong>Name:</strong> {order.shippingInfo.name}</p>
-                <p><strong>Address:</strong> {order.shippingInfo.address}</p>
-                <p><strong>Phone:</strong> {order.shippingInfo.phone}</p>
-              </div>
-
-              <div className="border-t pt-3">
-                <p className="font-semibold mb-2">Items:</p>
-                {order.items.map((item, index) => (
-                  <div key={index} className="flex justify-between text-sm">
-                    <p>{item.name}</p>
-                    <p>Qty: {item.quantity}</p>
+                {/* Shipping Info */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 pt-2 pb-4 border-b border-dashed border-gray-200">
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-1">Shipping Details:</p>
+                    <p>
+                      <span className="font-medium">Name:</span>{" "}
+                      {order.shippingInfo.name}
+                    </p>
+                    <p>
+                      <span className="font-medium">Address:</span>{" "}
+                      {order.shippingInfo.address}
+                    </p>
                   </div>
-                ))}
-              </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-1 invisible md:visible"></p> {/* Placeholder for alignment */}
+                    <p>
+                      <span className="font-medium">Phone:</span>{" "}
+                      {order.shippingInfo.phone}
+                    </p>
+                    <p>
+                      <span className="font-medium">Pincode:</span>{" "}
+                      {order.shippingInfo.pincode || "N/A"} {/* Assuming pincode might be there */}
+                    </p>
+                  </div>
+                </div>
 
-              <div className="flex justify-between items-center pt-3 border-t">
-                <p className="font-bold">Total: ₹{order.total}</p>
-                <p className="text-sm text-blue-600 font-semibold">
-                  Status: {order.status}
-                </p>
+                {/* Items */}
+                <div className="pt-2">
+                  <p className="font-bold text-lg text-gray-800 mb-3">Items Ordered:</p>
+                  <div className="space-y-3">
+                    {order.items.map((item) => (
+                      <div
+                        key={item.productId} // Use productId for uniqueness
+                        className="flex items-center gap-4 bg-gray-50 p-3 rounded-lg shadow-inner border border-gray-100"
+                      >
+                        <div className="w-16 h-16 flex-shrink-0 bg-white rounded-md overflow-hidden border border-gray-200">
+                           <img
+                             src={item.image}
+                             alt={item.name}
+                             className="w-full h-full object-contain" // object-contain to ensure image fits
+                           />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-gray-800 font-semibold text-base">
+                            {item.name}
+                          </p>
+                          <p className="text-gray-500 text-sm">
+                            Qty: <span className="font-medium">{item.quantity}</span> | Price: ₹
+                            <span className="font-medium">{item.price}</span>
+                          </p>
+                        </div>
+                        <p className="text-gray-900 font-bold text-md flex items-center">
+                          <IndianRupee size={14} />{(item.quantity * item.price).toFixed(2)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Total & Status */}
+                <div className="flex justify-between items-center border-t pt-4 mt-4">
+                  <p className="font-bold text-xl text-gray-900 flex items-center gap-1">
+                    <IndianRupee size={18} />
+                    Total: <span className="text-orange-600">{order.total.toFixed(2)}</span>
+                  </p>
+                  <div className={`text-md font-bold flex items-center gap-2 px-3 py-1 rounded-full ${statusInfo.color} bg-opacity-10`}
+                       style={{backgroundColor: `${statusInfo.color.replace('text-', '')}1A`}}> {/* Dynamic background color */}
+                    {statusInfo.icon}
+                    <span>{order.status}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

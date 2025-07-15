@@ -164,16 +164,28 @@
       "password": "asif44@gamil.com",
       "role": "user",
       "isBlock": false,
-      "cart": [],
-      "wishlist": [
+      "cart": [
         {
-          "productId": "2"
-        },
+          "productId": "2",
+          "quantity": 3,
+          "size": "7"
+        }
+      ],
+      "wishlist": [
         {
           "productId": "5"
         },
         {
+          "productId": "1"
+        },
+        {
+          "productId": "8"
+        },
+        {
           "productId": "3"
+        },
+        {
+          "productId": "6"
         }
       ],
       "orders": [
@@ -358,6 +370,116 @@
         }
       ],
       "created_at": "2025-07-14T09:54:10.354Z"
+    },
+    {
+      "id": "f7b5",
+      "name": "adnan ",
+      "email": "adnan@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "2",
+          "quantity": 2,
+          "size": "7"
+        }
+      ],
+      "wishlist": [
+        {
+          "productId": "2"
+        }
+      ],
+      "orders": [],
+      "created_at": "2025-07-15T07:59:09.197Z"
+    },
+    {
+      "id": "44fb",
+      "name": "adhnan",
+      "email": "adhnan@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "size": "6"
+        }
+      ],
+      "wishlist": [
+        {
+          "productId": "4"
+        },
+        {
+          "productId": "6"
+        },
+        {
+          "productId": "7"
+        },
+        {
+          "productId": "3"
+        },
+        {
+          "productId": "5"
+        }
+      ],
+      "orders": [
+        {
+          "id": 1752575809743,
+          "items": [
+            {
+              "id": "3",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 3,
+              "size": "7",
+              "productId": "3"
+            },
+            {
+              "id": "4",
+              "name": "Adidas Superstar",
+              "price": 3799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/adidas.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "6",
+              "productId": "4"
+            }
+          ],
+          "total": 12196,
+          "shippingInfo": {
+            "name": "adhnan",
+            "address": "kakaknchery",
+            "phone": "8590556789"
+          },
+          "status": "Pending",
+          "date": "2025-07-15T10:36:49.743Z"
+        }
+      ],
+      "created_at": "2025-07-15T09:53:16.694Z"
     }
   ],
   "products": [
