@@ -17,26 +17,26 @@ export default function NavBar() {
   const handleLogout = () => {
     logout();
     navigate("/login");
-    setMenuOpen(false); // close mobile menu on logout
+    setMenuOpen(false); //toclose mobile menu on logout
   };
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav className="bg-gray-900 text-white">
-      {/* Container */}
+      
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
+       
         <Link to="/" className="text-2xl font-bold" onClick={closeMenu}>
           ShoeVerse
         </Link>
 
-        {/* Hamburger Icon for Mobile */}
+        
         <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Desktop Navigation */}
+        
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/products" className="hover:text-gray-300">
             Products
@@ -78,8 +78,7 @@ export default function NavBar() {
           )}
         </div>
       </div>
-
-      {/* Mobile Navigation */}
+ 
       {menuOpen && (
         <div className="md:hidden bg-gray-800 px-4 py-4 space-y-3 animate-slide-down">
           <Link to="/products" onClick={closeMenu} className="block">

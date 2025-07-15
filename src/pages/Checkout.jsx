@@ -90,8 +90,7 @@ export default function Checkout() {
             className="w-full border px-4 py-2 rounded"
           />
         </div>
-
-        {/* Order Summary */}
+        
         <div>
           <h2 className="text-xl font-semibold mb-2">Order Summary</h2>
           {cartItems.map((item) => (

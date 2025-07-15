@@ -7,7 +7,7 @@ export default function Cart() {
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
-  // 🧮 Calculate total price when cart changes
+  //  Calculate total price when cart changes
   useEffect(() => {
     const totalPrice = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
@@ -20,12 +20,12 @@ export default function Cart() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-6 text-center">Your Cart</h1>
 
-      {/* 🚫 Empty Cart */}
+      {/*  Empty Cart */}
       {cartItems.length === 0 ? (
         <p className="text-center text-gray-500">Your cart is empty.</p>
       ) : (
         <>
-          {/* 🛒 Cart Items */}
+          {/*  Cart Items */}
           <div className="space-y-6">
             {cartItems.map((item) => (
               <div
@@ -42,7 +42,7 @@ export default function Cart() {
                   <p className="text-sm text-gray-600">Size: {item.size}</p>
                   <p className="text-gray-800 font-medium">₹ {item.price}</p>
 
-                  {/* 🔄 Quantity Controls */}
+                  {/*  Quantity Controls */}
                   <div className="flex items-center gap-3 mt-2">
                     <button
                       onClick={() => changeQuantity(item.productId, "dec")}
@@ -59,7 +59,7 @@ export default function Cart() {
                     </button>
                   </div>
 
-                  {/* ❌ Remove */}
+                  {/*  Remove */}
                   <button
                     onClick={() => removeFromCart(item.productId)}
                     className="text-red-500 text-sm mt-2 hover:underline"
@@ -71,7 +71,7 @@ export default function Cart() {
             ))}
           </div>
 
-          {/* ✅ Total + Checkout */}
+          {/* Total + Checkout */}
           <div className="text-right mt-8">
             <h2 className="text-xl font-bold mb-2">Total: ₹ {total}</h2>
             <button

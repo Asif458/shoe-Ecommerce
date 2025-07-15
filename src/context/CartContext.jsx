@@ -42,7 +42,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // 🔁 Update cart on backend
+ 
   const updateCart = async (updatedItems) => {
     try {
       const updatedCart = updatedItems.map((item) => ({
@@ -56,8 +56,7 @@ export const CartProvider = ({ children }) => {
       console.error("Error updating cart:", err);
     }
   };
-
-  // ➕➖ Change quantity
+ 
   const changeQuantity = (productId, type) => {
     const updated = cartItems.map((item) => {
       if (item.productId === productId) {
@@ -70,7 +69,7 @@ export const CartProvider = ({ children }) => {
     updateCart(updated);
   };
 
-  // ❌ Remove item
+ 
   const removeFromCart = (productId) => {
     const updated = cartItems.filter((item) => item.productId !== productId);
     setCartItems(updated);

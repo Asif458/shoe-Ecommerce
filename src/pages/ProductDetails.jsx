@@ -89,7 +89,7 @@ export default function ProductDetails() {
           alt={product.name}
           className="w-full h-[400px] object-cover rounded-lg shadow"
         />
-        {/* ❤️ Wishlist Button */}
+        {/*  Wishlist Button */}
         <button
           onClick={handleWishlistClick}
           className="absolute top-4 right-4 text-2xl"

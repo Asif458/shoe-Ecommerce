@@ -53,9 +53,9 @@ export default function ProductList() {
           : "Shop All Shoes"}
       </h1>
 
-      {/* 🔍 Search & Filter */}
+    
       <div className="mb-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Search */}
+         
         <input
           type="text"
           value={search}
@@ -64,7 +64,7 @@ export default function ProductList() {
           className="w-full md:w-1/2 px-5 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-800 bg-gray-50"
         />
 
-        {/* Category Buttons */}
+        
         <div className="flex flex-wrap gap-2 justify-center">
           {["All", "Men", "Women"].map((cat) => {
             const isActive =
@@ -89,7 +89,7 @@ export default function ProductList() {
         </div>
       </div>
 
-      {/* 🛒 Product Grid */}
+      {/*productssCards*/}
       {products.length === 0 ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (

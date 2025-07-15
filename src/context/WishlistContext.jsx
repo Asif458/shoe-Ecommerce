@@ -1,4 +1,4 @@
-// ✅ WishlistContext.jsx
+//  WishlistContext.jsx
 import React, { createContext, useEffect, useState } from "react";
 import api from "../services/api";
 
@@ -16,7 +16,7 @@ export default function WishlistProvider({ children }) {
     // eslint-disable-next-line
   }, []);
 
-  // ✅ Fetch full wishlist
+  //  Fetch full wishlist
   const fetchWishlist = async () => {
     try {
       const res = await api.get(`/users/${user.id}`);
@@ -95,7 +95,7 @@ export default function WishlistProvider({ children }) {
               ? { ...item, quantity: item.quantity + 1 }
               : item
           )
-        : [...cart, { productId: product.productId, quantity: 1, size: "8" }]; // 👟 default size
+        : [...cart, { productId: product.productId, quantity: 1, size: "8" }];  
 
       const updatedWishlist = wishlist.filter(
         (item) => item.productId !== product.productId
