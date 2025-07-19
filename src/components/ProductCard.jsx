@@ -6,41 +6,42 @@ export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useContext(WishlistContext);
 
-  const liked = isInWishlist(product.id);
+  const productId = product?.id;
+  const liked = isInWishlist(productId);
 
   const handleViewDetails = () => {
-    navigate(`/products/${product.id}`);
+    navigate(`/products/${productId}`);
   };
 
   const toggleWishlist = () => {
-    liked ? removeFromWishlist(product.id) : addToWishlist(product);
+    if (!productId) return;
+    liked ? removeFromWishlist(productId) : addToWishlist(product);
   };
 
   return (
     <div className="relative bg-white shadow-md rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-300">
-      {/* ❤️ Wishlist Button */}
+      {/* ❤️ Wishlist Toggle */}
       <button
         onClick={toggleWishlist}
+        title={liked ? "Remove from Wishlist" : "Add to Wishlist"}
         className="absolute top-3 right-3 z-10 bg-white p-2 rounded-full shadow hover:scale-110 transition"
       >
-        {liked ? (
-          <span className="text-red-500 text-xl">❤️</span>
-        ) : (
-          <span className="text-gray-400 text-xl">🤍</span>
-        )}
+        <span className={`text-xl ${liked ? "text-red-500" : "text-gray-400"}`}>
+          {liked ? "❤️" : "🤍"}
+        </span>
       </button>
 
       {/* 🖼️ Product Image */}
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer"
         onClick={handleViewDetails}
+        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer"
       />
 
-      {/* 📦 Product Details */}
+      {/* 📦 Product Info */}
       <div className="p-4 text-center">
-        <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+        <h3 className="text-lg font-semibold text-gray-800 truncate">{product.name}</h3>
         <p className="text-gray-600 mb-4">₹ {product.price}</p>
 
         <button

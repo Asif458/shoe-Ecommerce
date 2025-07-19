@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
+import { toast } from "react-hot-toast"; 
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -13,21 +14,58 @@ export default function Orders() {
 
   useEffect(() => {
     applyFilters();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders, search, sortOrder]);
 
   const fetchOrders = async () => {
     try {
-      const res = await api.get("/orders");
-      setOrders(res.data);
+      const res = await api.get("/users");
+      const allUsers = res.data;
+
+      const allOrders = [];
+
+      allUsers.forEach((user) => {
+        (user.orders || []).forEach((order) => {
+          allOrders.push({
+            ...order,
+            userId: user.id,
+            customerName: user.name,
+          });
+        });
+      });
+
+      setOrders(allOrders);
     } catch (err) {
       console.error("Error fetching orders:", err);
+      toast.error("Failed to load orders"); 
+    }
+  };
+
+  const handleStatusChange = async (userId, orderId, newStatus) => {
+    try {
+      const res = await api.get(`/users/${userId}`);
+      const user = res.data;
+
+      const updatedOrders = (user.orders || []).map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      );
+
+      await api.patch(`/users/${userId}`, {
+        orders: updatedOrders,
+      });
+
+      toast.success("Order status updated");  
+      fetchOrders(); // Refresh
+    } catch (err) {
+      console.error("Failed to update status:", err);
+      toast.error("Failed to update status");  
     }
   };
 
   const applyFilters = () => {
     let temp = [...orders];
 
-    // Filter by customer name or ID
+    // Search
     if (search.trim()) {
       temp = temp.filter(
         (order) =>
@@ -36,7 +74,7 @@ export default function Orders() {
       );
     }
 
-    // Sort by date
+    // Sort
     if (sortOrder === "newest") {
       temp.sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (sortOrder === "oldest") {
@@ -50,11 +88,11 @@ export default function Orders() {
     <div className="min-h-screen w-full p-6 bg-gray-100">
       <h2 className="text-2xl font-bold mb-6">Manage Orders</h2>
 
-      {/* 🔍 Filter and Sort Controls */}
+      {/*  Filter & Sort */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <input
           type="text"
-          placeholder="Search by customer name or order ID..."
+          placeholder="Search by name or order ID"
           className="border p-2 rounded w-full sm:w-1/3"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -71,7 +109,7 @@ export default function Orders() {
         </select>
       </div>
 
-      {/* 📋 Orders Table */}
+      {/*  Orders Table */}
       {filtered.length === 0 ? (
         <p>No orders found.</p>
       ) : (
@@ -91,18 +129,22 @@ export default function Orders() {
                 <tr key={order.id} className="border-b hover:bg-gray-50">
                   <td className="px-6 py-3 font-medium">#{order.id}</td>
                   <td className="px-6 py-3">{order.customerName}</td>
-                  <td className="px-6 py-3">{new Date(order.date).toLocaleDateString()}</td>
+                  <td className="px-6 py-3">
+                    {new Date(order.date).toLocaleDateString()}
+                  </td>
                   <td className="px-6 py-3">₹{order.total}</td>
                   <td className="px-6 py-3">
-                    <span className={`px-2 py-1 rounded-full text-sm font-medium ${
-                      order.status === "Delivered"
-                        ? "bg-green-100 text-green-700"
-                        : order.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-gray-100 text-gray-700"
-                    }`}>
-                      {order.status}
-                    </span>
+                    <select
+                      value={order.status}
+                      onChange={(e) =>
+                        handleStatusChange(order.userId, order.id, e.target.value)
+                      }
+                      className="border px-2 py-1 rounded text-sm"
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
                   </td>
                 </tr>
               ))}

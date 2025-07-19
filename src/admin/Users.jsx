@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast"; // ✅ Use hot-toast
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -13,6 +13,7 @@ export default function Users() {
 
   useEffect(() => {
     applyFilters();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users, search]);
 
   const fetchUsers = async () => {
@@ -20,23 +21,46 @@ export default function Users() {
       const res = await api.get("/users");
       setUsers(res.data);
     } catch (err) {
-      console.error("Failed to fetch users:", err);
-      toast.error("Error loading users");
+      console.error("Error loading users:", err);
+      toast.error("Failed to load users ");
     }
   };
 
-  const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this user?");
-    if (!confirm) return;
-
-    try {
-      await api.delete(`/users/${id}`);
-      toast.success("User deleted");
-      setUsers(users.filter((u) => u.id !== id));
-    } catch (err) {
-      console.error("Delete failed:", err);
-      toast.error("Failed to delete user");
-    }
+  const handleDelete = (id) => {
+    toast(
+      (t) => (
+        <span className="flex flex-col">
+          <p className="font-semibold mb-2">Are you sure you want to delete this user?</p>
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={async () => {
+                toast.dismiss(t.id);
+                try {
+                  await api.delete(`/users/${id}`);
+                  setUsers((prev) => prev.filter((u) => u.id !== id));
+                  toast.success("User deleted successfully ");
+                } catch (err) {
+                  console.error("Delete failed:", err);
+                  toast.error("Failed to delete user");
+                }
+              }}
+              className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+            >
+              Yes, Delete
+            </button>
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="px-3 py-1 border border-gray-300 text-sm rounded hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+          </div>
+        </span>
+      ),
+      {
+        duration: 10000,
+      }
+    );
   };
 
   const applyFilters = () => {
@@ -55,7 +79,7 @@ export default function Users() {
     <div className="min-h-screen bg-gray-100 p-6">
       <h2 className="text-2xl font-bold mb-6">Manage Users</h2>
 
-      {/* 🔍 Search Input */}
+      {/*  Search Input */}
       <div className="mb-6">
         <input
           type="text"
@@ -66,9 +90,12 @@ export default function Users() {
         />
       </div>
 
-      {/* 👥 User Table */}
+      {/* User Table */}
       {filtered.length === 0 ? (
-        <p>No users found.</p>
+        <>
+          <p>No users found.</p>
+          {search.trim() && toast.error("No users matched your search")}
+        </>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">

@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
-import ProductCard from "./ProductCard"; // Assuming ProductCard is well-designed
+import ProductCard from "./ProductCard";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Search as SearchIcon } from 'lucide-react'; // Import Lucide icon for search
+import { Search as SearchIcon } from "lucide-react";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true); // State for loading/shimmer
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAndSetProducts = async () => {
-      setLoading(true); // Start loading
-      await fetchProducts();
-      setLoading(false); // End loading
-    };
-    fetchAndSetProducts();
+    fetchProducts();
     // eslint-disable-next-line
   }, [location.search, search]);
 
@@ -49,26 +43,11 @@ export default function ProductList() {
 
   const currentCategory = new URLSearchParams(location.search).get("category");
 
-  // --- Shimmer Loader Component ---
-  const ShimmerLoader = () => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-      {[...Array(8)].map((_, index) => ( // Show 8 shimmer cards
-        <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
-          <div className="h-60 bg-gray-200"></div> {/* Image placeholder */}
-          <div className="p-4">
-            <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div> {/* Title placeholder */}
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div> {/* Price placeholder */}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-
   return (
     <div className="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen w-full py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
+        <div className="text-center mb-16">
           <h1 className="text-5xl font-extrabold text-gray-900 leading-tight">
             {currentCategory ? (
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
@@ -80,12 +59,10 @@ export default function ProductList() {
               </span>
             )}
           </h1>
-           
-           
         </div>
 
         {/* Search & Filters */}
-        <div className="mb-16 flex flex-col md:flex-row items-center justify-between gap-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 animate-slide-in-up">
+        <div className="mb-16 flex flex-col md:flex-row items-center justify-between gap-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
           {/* Search Box */}
           <div className="relative w-full md:w-1/3">
             <input
@@ -122,21 +99,22 @@ export default function ProductList() {
           </div>
         </div>
 
-        {/* Products or Shimmer/No products message */}
-        {loading ? (
-          <ShimmerLoader />
-        ) : products.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-lg shadow-inner animate-fade-in">
-            <p className="text-2xl text-gray-600 font-medium mb-4">No products found matching your criteria.</p>
-            <p className="text-lg text-gray-500">Try adjusting your search or category filters.</p>
+        {/* Products or No products message */}
+        {products.length === 0 ? (
+          <div className="text-center py-20 bg-white rounded-lg shadow-inner">
+            <p className="text-2xl text-gray-600 font-medium mb-4">
+              No products found matching your criteria.
+            </p>
+            <p className="text-lg text-gray-500">
+              Try adjusting your search or category filters.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product, index) => (
+            {products.map((product) => (
               <div
                 key={product.id}
-                className="transform hover:scale-105 transition duration-300 animate-fade-in-up"
-                style={{ animationDelay: `${index * 100 + 100}ms` }}  
+                className="transform hover:scale-105 transition duration-300 bg-white"
               >
                 <ProductCard product={product} />
               </div>
@@ -145,72 +123,28 @@ export default function ProductList() {
         )}
 
         {/* Footer Info */}
-        {!loading && products.length > 0 && (
-          <div className="text-center mt-20 animate-fade-in-up">
+        {products.length > 0 && (
+          <div className="text-center mt-20">
             <div className="inline-flex items-center gap-3 px-8 py-4 bg-white rounded-full shadow-lg border border-gray-200">
               <span className="text-gray-600 text-lg">Showing</span>
-              <span className="font-extrabold text-gray-900 text-2xl">{products.length}</span>
+              <span className="font-extrabold text-gray-900 text-2xl">
+                {products.length}
+              </span>
               <span className="text-gray-600 text-lg">
                 {products.length === 1 ? "product" : "products"}
               </span>
               {currentCategory && (
-                <span className="text-gray-600 text-lg">in <span className="font-semibold text-blue-700">{currentCategory}</span></span>
+                <span className="text-gray-600 text-lg">
+                  in{" "}
+                  <span className="font-semibold text-blue-700">
+                    {currentCategory}
+                  </span>
+                </span>
               )}
             </div>
           </div>
         )}
       </div>
-
-      {/* --- Custom CSS Animations --- */}
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
-        }
-
-        @keyframes slide-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-slide-in-up {
-          animation: slide-in-up 0.7s ease-out forwards;
-        }
-
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .animate-fade-in {
-            animation: fade-in 0.5s ease-out forwards;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        .animate-pulse {
-          animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-      `}</style>
     </div>
   );
 }

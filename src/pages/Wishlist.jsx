@@ -2,36 +2,58 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { WishlistContext } from "../context/WishlistContext";
 import {
-  Heart, // Main icon for the title
-  ShoppingCart, // For 'Move to Cart'
-  Eye, // For 'View'
-  Trash2, // For 'Remove'
-  ArrowLeft, // For 'Continue Shopping' (empty state)
-} from "lucide-react"; // Import modern icons
+  Heart,
+  ShoppingCart,
+  Eye,
+  Trash2,
+  ArrowLeft,
+} from "lucide-react";
+import toast from "react-hot-toast"; // ✅ Add toast import
 
 export default function Wishlist() {
   const navigate = useNavigate();
-  const { wishlistItems, refreshWishlist, removeFromWishlist, moveToCart } =
-    useContext(WishlistContext);
+  const {
+    wishlistItems,
+    refreshWishlist,
+    removeFromWishlist,
+    moveToCart,
+  } = useContext(WishlistContext);
 
   useEffect(() => {
     refreshWishlist();
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    if (wishlistItems.length === 0) {
+      toast("Your wishlist is empty. Start adding some favorites!");
+    }
+  }, [wishlistItems]);
+
+  // ✅ Wrapper to show toast after remove
+  const handleRemove = (id) => {
+    removeFromWishlist(id);
+    toast.success("Removed from wishlist");
+  };
+
+  // ✅ Wrapper to show toast after move
+  const handleMoveToCart = (product) => {
+    moveToCart(product);
+    toast.success("Moved to cart");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in-up">
       {/* Page Title */}
       <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-10 text-center w-full flex items-center justify-center gap-4">
-        <Heart size={48} className="text-red-500 animate-pulse-heart" />{" "}
-        {/* Animated Heart Icon */}
+        <Heart size={48} className="text-red-500 animate-pulse-heart" />
         Your Wishlist
       </h1>
 
       {/* Empty Wishlist State */}
       {wishlistItems.length === 0 ? (
         <div className="flex flex-col items-center justify-center bg-white p-10 rounded-2xl shadow-lg border border-gray-100 max-w-md w-full text-center animate-fade-in">
-          <Heart size={64} className="text-red-300 mb-6" /> {/* Larger heart icon */}
+          <Heart size={64} className="text-red-300 mb-6" />
           <p className="text-xl text-gray-600 font-medium mb-6">
             Your wishlist is empty. Start adding some favorites!
           </p>
@@ -46,7 +68,7 @@ export default function Wishlist() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl w-full">
           {wishlistItems.map((product) => (
             <div
-              key={product.id} // Using product.id as key for better uniqueness
+              key={product.id}
               className="relative bg-white shadow-lg rounded-2xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-xl group animate-fade-in-up"
             >
               {/* Product Image */}
@@ -71,7 +93,7 @@ export default function Wishlist() {
                 {/* Action Buttons */}
                 <div className="mt-auto space-y-3">
                   <button
-                    onClick={() => moveToCart(product)}
+                    onClick={() => handleMoveToCart(product)}
                     className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2.5 rounded-full font-semibold text-base shadow-md transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 active:scale-95"
                   >
                     <ShoppingCart size={18} /> Move to Cart
@@ -85,8 +107,7 @@ export default function Wishlist() {
                   </button>
 
                   <button
-                    onClick={() => removeFromWishlist(product.id)}
-                    // Assuming product.id is used for removeFromWishlist based on context
+                    onClick={() => handleRemove(product.id)}
                     className="w-full flex items-center justify-center gap-2 text-red-600 text-sm mt-3 py-1.5 hover:underline hover:text-red-800 transition-colors duration-300"
                   >
                     <Trash2 size={16} /> Remove from Wishlist

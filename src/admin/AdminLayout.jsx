@@ -20,7 +20,7 @@ export default function AdminLayout() {
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white flex flex-col">
-        {/* Logo/Header */}
+        
         <div className="p-6 border-b border-gray-700">
           <h1 className="text-2xl font-bold text-white">ShoeVerse Admin</h1>
         </div>

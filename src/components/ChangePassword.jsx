@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/Authcontext";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast"; //  
 
 export default function ChangePassword() {
   const { user } = useContext(AuthContext);
@@ -28,20 +28,19 @@ export default function ChangePassword() {
     try {
       setLoading(true);
 
-      // Fetch current user from API
+      // Fetchingg the current user API
       const res = await api.get(`/users/${user.id}`);
       const currentUser = res.data;
 
-      // Check current password
+      //current pass check
       if (currentUser.password !== currentPassword) {
         toast.error("Current password is incorrect");
         return;
       }
 
-      // Update password
+      //update pass
       await api.patch(`/users/${user.id}`, { password: newPassword });
       toast.success("Password changed successfully");
-
       navigate("/products");
     } catch (err) {
       console.error(err);

@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Authcontext";
-import { UserPlus, User, Mail, Lock } from "lucide-react"; // Importing icons
+import { UserPlus, User, Mail, Lock } from "lucide-react";
+import { toast } from "react-hot-toast"; // ✅ hot-toast
 
 export default function Signup() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -17,7 +18,10 @@ export default function Signup() {
     e.preventDefault();
     try {
       const check = await api.get(`/users?email=${form.email}`);
-      if (check.data.length > 0) return alert("Email already exists");
+      if (check.data.length > 0) {
+        toast.error("Email already exists");
+        return;
+      }
 
       const newUser = {
         ...form,
@@ -31,11 +35,11 @@ export default function Signup() {
 
       const res = await api.post("/users", newUser);
       login(res.data);
-      alert("Signup successful");
+      toast.success("Signup successful");
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Signup failed");
+      toast.error("Signup failed");
     }
   };
 
@@ -43,10 +47,8 @@ export default function Signup() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-teal-100 p-4 sm:p-6 lg:p-8 animate-fade-in">
       <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl hover:scale-[1.005]">
         <div className="flex flex-col items-center mb-8">
-          <UserPlus size={64} className="text-teal-600 mb-4 animate-bounce-in" /> {/* Modern icon with animation */}
-          <h2 className="text-4xl font-extrabold text-gray-900 text-center">
-            Join Us!
-          </h2>
+          <UserPlus size={64} className="text-teal-600 mb-4 animate-bounce-in" />
+          <h2 className="text-4xl font-extrabold text-gray-900 text-center">Join Us!</h2>
           <p className="text-gray-500 text-lg mt-2">Create your account</p>
         </div>
 

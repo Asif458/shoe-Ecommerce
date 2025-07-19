@@ -4,8 +4,17 @@ import { WishlistContext } from "../context/WishlistContext";
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/Authcontext";
 import {
-  Menu, X, ShoppingCart, Heart, Package, Settings, User, LogOut, Lock,
-  ChevronDown, ChevronUp
+  Menu,
+  X,
+  ShoppingCart,
+  Heart,
+  Package,
+  Settings,
+  User,
+  LogOut,
+  Lock,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 export default function NavBar() {
@@ -28,7 +37,6 @@ export default function NavBar() {
 
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -45,11 +53,12 @@ export default function NavBar() {
         <div className="flex justify-between items-center h-16">
           <Link
             to="/"
-            className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:from-purple-400 hover:to-pink-400 transition-all duration-500 transform hover:scale-110 hover:drop-shadow-lg"
+            className="text-2xl font-bold text-white hover:bg-gradient-to-r hover:from-white hover:to-gray-300 hover:bg-clip-text hover:text-transparent transition-all duration-500 transform hover:scale-110 hover:drop-shadow-lg"
           >
             ShoeVerse
           </Link>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/products"
@@ -140,14 +149,14 @@ export default function NavBar() {
                         navigate("/change-password");
                         setDropdownOpen(false);
                       }}
-                      className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 transition-all duration-200 flex items-center gap-2"
+                      className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 flex items-center gap-2"
                     >
                       <Lock size={16} className="text-blue-500" />
                       Change Password
                     </button>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 transition-all duration-200 flex items-center gap-2"
+                      className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                     >
                       <LogOut size={16} className="text-red-500" />
                       Logout
@@ -158,6 +167,7 @@ export default function NavBar() {
             )}
           </div>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -167,6 +177,68 @@ export default function NavBar() {
             </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        {menuOpen && (
+          <div className="md:hidden px-4 pb-4 space-y-2">
+            <Link to="/products" onClick={() => setMenuOpen(false)} className="block text-gray-300 hover:text-blue-400">
+              Products
+            </Link>
+
+            {user && (
+              <>
+                <Link to="/cart" onClick={() => setMenuOpen(false)} className="block text-gray-300 hover:text-blue-400">
+                  Cart ({cartCount})
+                </Link>
+                <Link to="/wishlist" onClick={() => setMenuOpen(false)} className="block text-gray-300 hover:text-pink-500">
+                  Wishlist ({wishlistCount})
+                </Link>
+                <Link to="/orders" onClick={() => setMenuOpen(false)} className="block text-gray-300 hover:text-blue-400">
+                  Orders
+                </Link>
+              </>
+            )}
+
+            {user?.role === "admin" && (
+              <Link to="/admin" onClick={() => setMenuOpen(false)} className="block text-gray-300 hover:text-blue-400">
+                Admin
+              </Link>
+            )}
+
+            {!user ? (
+              <>
+                <Link to="/login" onClick={() => setMenuOpen(false)} className="block text-gray-300 hover:text-blue-400">
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  onClick={() => setMenuOpen(false)}
+                  className="block text-white bg-blue-600 px-4 py-2 rounded"
+                >
+                  Signup
+                </Link>
+              </>
+            ) : (
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    navigate("/change-password");
+                    setMenuOpen(false);
+                  }}
+                  className="block text-gray-300 hover:text-blue-400 w-full text-left"
+                >
+                  Change Password
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="block text-red-500 hover:text-red-700 w-full text-left"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );

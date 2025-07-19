@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { addToCart } from "../services/cartService";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast"; // ✅ hot-toast import
 import { WishlistContext } from "../context/WishlistContext";
-import { CartContext } from "../context/CartContext"; // ✅ ADDED
+import { CartContext } from "../context/CartContext";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { ShoppingCart, ArrowLeft, Ruler } from "lucide-react";
 
@@ -14,7 +14,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
   const { wishlistItems, addToWishlist } = useContext(WishlistContext);
-  const { refreshCart } = useContext(CartContext); // ✅ ADDED
+  const { refreshCart } = useContext(CartContext);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const isInWishlist = wishlistItems.some((item) => item.id === product?.id);
@@ -36,17 +36,17 @@ export default function ProductDetails() {
 
   const handleAddToCart = async () => {
     if (!selectedSize) {
-      toast.warning("Please select a shoe size.");
+      toast("Please select a shoe size.", { icon: "👟", style: { background: "#fff3cd", color: "#856404" } });
       return;
     }
     if (!user) {
-      toast.info("Please login to add to cart.");
+      toast("Please login to add to cart.", { icon: "🔐" });
       setTimeout(() => navigate("/login"), 1500);
       return;
     }
     try {
       await addToCart(user.id, product.id, selectedSize);
-      refreshCart(); // ✅ CRUCIAL LINE TO REFRESH CONTEXT
+      refreshCart();
       toast.success("Added to cart!");
     } catch (err) {
       console.error("Add to cart failed:", err);
@@ -56,10 +56,10 @@ export default function ProductDetails() {
 
   const handleWishlistClick = async () => {
     if (!user) {
-      toast.info("Please login to add to wishlist.");
+      toast("Please login to add to wishlist.", { icon: "🔐" });
       return navigate("/login");
     }
-    if (isInWishlist) return toast.info("Already in wishlist.");
+    if (isInWishlist) return toast("Already in wishlist.", { icon: "❤️" });
     try {
       await addToWishlist(product);
       toast.success("Added to wishlist!");

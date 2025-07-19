@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import ToastStyles from "./components/ToastStyles"; //  
 
-// user components
+// User Components
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Signup from "./Auth/Signup";
@@ -16,7 +16,7 @@ import ProductList from "./components/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import ChangePassword from "./components/ChangePassword";
 
-// admin components
+// Admin Components
 import Dashboard from "./admin/Dashboard";
 import Products from "./admin/Products";
 import Orders from "./admin/Orders";
@@ -25,19 +25,18 @@ import EditProduct from "./admin/EditProduct";
 import AddProduct from "./admin/AddProduct";
 import AdminLayout from "./admin/AdminLayout";
 
-// layout wrapper to hide NavBar on admin pages
 function LayoutWrapper() {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
 
   return (
     <>
-      {/* User NavBar (hidden for admin routes) */}
+      {/* Show NavBar only on user-facing pages */}
       {!isAdminPage && <NavBar />}
+ 
+      <ToastStyles />
 
-      {/* Toast Notifications */}
-      <ToastContainer position="top-center" autoClose={2000} theme="colored" />
-
+      {/* Routes */}
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
@@ -102,8 +101,15 @@ function LayoutWrapper() {
           }
         />
 
-        {/* Admin Routes with Sidebar Layout */}
-        <Route path="/admin" element={<AdminLayout />}>
+        {/* Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <AdminProtectedRoute>
+              <AdminLayout />
+            </AdminProtectedRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="products/add" element={<AddProduct />} />

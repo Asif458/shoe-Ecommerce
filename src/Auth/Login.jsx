@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Authcontext";
-import { LogIn, Mail, Lock } from "lucide-react"; // Importing icons
+import { LogIn, Mail, Lock } from "lucide-react";
+import { toast } from "react-hot-toast"; // ✅ hot toast import
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -17,17 +18,23 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await api.get(`/users?email=${form.email}&password=${form.password}`);
-      if (res.data.length === 0) return alert("Invalid credentials");
+      if (res.data.length === 0) {
+        toast.error("Invalid credentials");
+        return;
+      }
 
       const user = res.data[0];
-      if (user.isBlock) return alert("Account blocked");
+      if (user.isBlock) {
+        toast.error("Account is blocked");
+        return;
+      }
 
       login(user);
-      alert(`Welcome, ${user.name}`);
+      toast.success(`Welcome, ${user.name}!`);
       navigate(user.role === "admin" ? "/admin" : "/");
     } catch (err) {
       console.error(err);
-      alert("Login failed");
+      toast.error("Login failed");
     }
   };
 
@@ -35,7 +42,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-6 lg:p-8 animate-fade-in">
       <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl hover:scale-[1.005]">
         <div className="flex flex-col items-center mb-8">
-          <LogIn size={64} className="text-blue-600 mb-4 animate-bounce-in" /> {/* Modern icon with animation */}
+          <LogIn size={64} className="text-blue-600 mb-4 animate-bounce-in" />
           <h2 className="text-4xl font-extrabold text-gray-900 text-center">
             Welcome Back!
           </h2>
