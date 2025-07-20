@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
-import ToastStyles from "./components/ToastStyles"; //  
+import ToastStyles from "./components/ToastStyles";
 
 // User Components
 import NavBar from "./components/NavBar";
@@ -15,6 +15,7 @@ import Order from "./pages/Order";
 import ProductList from "./components/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import ChangePassword from "./components/ChangePassword";
+import Blocked from "./pages/Blocked";
 
 // Admin Components
 import Dashboard from "./admin/Dashboard";
@@ -31,27 +32,22 @@ function LayoutWrapper() {
 
   return (
     <>
-      {/* Show NavBar only on user-facing pages */}
+      {/* ✅ Show NavBar only on user-facing pages */}
       {!isAdminPage && <NavBar />}
- 
+
       <ToastStyles />
 
-      {/* Routes */}
       <Routes>
-        {/* Public Routes */}
+        {/* ✅ Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/blocked" element={<Blocked />} />
 
-        {/* Protected User Routes */}
-        <Route
-          path="/products"
-          element={
-            <ProtectedRoute>
-              <ProductList />
-            </ProtectedRoute>
-          }
-        />
+        {/* ✅ Public Product List Route */}
+        <Route path="/products" element={<ProductList />} />
+
+        {/* 🔒 Protected Product Details */}
         <Route
           path="/products/:id"
           element={
@@ -60,6 +56,8 @@ function LayoutWrapper() {
             </ProtectedRoute>
           }
         />
+
+        {/* 🔒 User Protected Routes */}
         <Route
           path="/cart"
           element={
@@ -101,7 +99,7 @@ function LayoutWrapper() {
           }
         />
 
-        {/* Admin Routes */}
+        {/* 🔒 Admin Routes */}
         <Route
           path="/admin"
           element={

@@ -1176,20 +1176,150 @@
       "isBlock": false,
       "cart": [
         {
-          "productId": "2",
-          "quantity": 1,
-          "size": "7"
+          "productId": "1",
+          "quantity": 2,
+          "size": "8"
         }
       ],
       "wishlist": [
         {
-          "productId": "3"
-        },
-        {
-          "productId": "2"
+          "productId": "1"
         }
       ],
-      "orders": [],
+      "orders": [
+        {
+          "id": 1753019944671,
+          "items": [
+            {
+              "id": "3",
+              "name": "Adidas Superstar",
+              "price": 3799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/adidas.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "9",
+              "productId": "3"
+            }
+          ],
+          "total": 3799,
+          "shippingInfo": {
+            "name": "asif ",
+            "address": "wayanad",
+            "phone": "98738362382"
+          },
+          "status": "Pending",
+          "date": "2025-07-20T13:59:04.671Z"
+        },
+        {
+          "id": 1753020072807,
+          "items": [
+            {
+              "id": "2",
+              "name": "Nike Airforce 1",
+              "price": 2799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/af.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "9",
+              "productId": "2"
+            }
+          ],
+          "total": 2799,
+          "shippingInfo": {
+            "name": "muhammed asif ",
+            "address": "calicut",
+            "phone": "983738373"
+          },
+          "status": "Pending",
+          "date": "2025-07-20T14:01:12.807Z"
+        },
+        {
+          "id": 1753020321572,
+          "items": [
+            {
+              "id": "6",
+              "name": "Adidas Samba",
+              "price": 3499,
+              "category": "Men",
+              "description": "High-quality running shoes for men.",
+              "image": "/samba2.avif",
+              "stock": 10,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "9",
+              "productId": "6"
+            }
+          ],
+          "total": 3499,
+          "shippingInfo": {
+            "name": "asif",
+            "address": "calicut",
+            "phone": "9373876778"
+          },
+          "status": "Pending",
+          "date": "2025-07-20T14:05:21.572Z"
+        },
+        {
+          "id": 1753020524568,
+          "items": [
+            {
+              "id": "3",
+              "name": "Adidas Superstar",
+              "price": 3799,
+              "category": "Men",
+              "description": "Stylish sneakers for everyday wear.",
+              "image": "/adidas.avif",
+              "stock": 15,
+              "sizes": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11"
+              ],
+              "quantity": 1,
+              "size": "10",
+              "productId": "3"
+            }
+          ],
+          "total": 3799,
+          "shippingInfo": {
+            "name": "muhammed asif",
+            "address": "wayanad",
+            "phone": "9837383333"
+          },
+          "status": "Pending",
+          "date": "2025-07-20T14:08:44.568Z"
+        }
+      ],
       "created_at": "2025-07-19T14:29:43.219Z"
     }
   ],
@@ -1298,11 +1428,11 @@
     },
     {
       "id": "7",
-      "name": "Adidas Samba",
-      "price": 3499,
+      "name": "Adidas performance",
+      "price": 2499,
       "category": "Men",
       "description": "High-quality running shoes for men.",
-      "image": "/samba2.avif",
+      "image": "https://img01.ztat.net/article/spp-media-p1/7eb7fb8126dc421ca1753c8d242f2bde/89462b6e98594018b854274ec04b4e09.jpg?imwidth=1800&filter=packshot",
       "stock": 10,
       "sizes": [
         "6",
@@ -1328,6 +1458,62 @@
         "10"
       ],
       "description": "puma modern shoes"
+    },
+    {
+      "id": "1463",
+      "name": "New Balance 530",
+      "price": 3999,
+      "category": "Men",
+      "image": "https://www.superkicks.in/cdn/shop/files/1_2ddbddf6-3d87-4d4f-83e7-41b3a9be1e0c.jpg?v=1729676570&width=1946",
+      "stock": 25,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "description": "bets running shoes"
+    },
+    {
+      "id": "ae71",
+      "name": "Puma Sneaker Pink",
+      "price": 1999,
+      "category": "Women",
+      "image": "https://media.istockphoto.com/id/1015301934/photo/running-pink-sport-shoe-for-women-on-white-background.jpg?s=612x612&w=0&k=20&c=ugiZopiqOzjCJ9IHYW5hKsav6987KclhtiUdHlooUgU=",
+      "stock": 40,
+      "sizes": [
+        "6",
+        "7"
+      ],
+      "description": "womans good shoes"
+    },
+    {
+      "id": "2fcd",
+      "name": "Converse",
+      "price": 2499,
+      "category": "Women",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSed80GG-p6JdMYsFdByfe3nz_TC6QgCyQ6JKreZYGCcWn1gqoDIimav0yT9zEyKPXGRgw&usqp=CAU",
+      "stock": 40,
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "description": "converse new edtion shoes for woman"
+    },
+    {
+      "id": "4cdc",
+      "name": "Converse All star",
+      "price": 3999,
+      "category": "Women",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRopgVCF-c3mTkZJ3Oc1-YRxCRkGb7hILXA6OB2g0jyV49CFH3VwSptbcAQNNXhLwq-yF4&usqp=CAU",
+      "stock": 35,
+      "sizes": [
+        "6",
+        "7"
+      ],
+      "description": "all stars converse latest editon "
     }
   ],
   "orders": []

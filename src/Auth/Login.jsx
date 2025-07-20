@@ -3,7 +3,7 @@ import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Authcontext";
 import { LogIn, Mail, Lock } from "lucide-react";
-import { toast } from "react-hot-toast"; // ✅ hot toast import
+import { toast } from "react-hot-toast";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -17,24 +17,29 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.get(`/users?email=${form.email}&password=${form.password}`);
+      const res = await api.get(
+        `/users?email=${form.email}&password=${form.password}`
+      );
+
       if (res.data.length === 0) {
         toast.error("Invalid credentials");
         return;
       }
 
       const user = res.data[0];
+
+      // ✅ Check if the user is blocked
       if (user.isBlock) {
-        toast.error("Account is blocked");
+        toast.error("Your account has been blocked by admin");
         return;
       }
 
-      login(user);
+      login(user); // ✅ Save to context
       toast.success(`Welcome, ${user.name}!`);
       navigate(user.role === "admin" ? "/admin" : "/");
     } catch (err) {
       console.error(err);
-      toast.error("Login failed");
+      toast.error("Login failed. Please try again.");
     }
   };
 
@@ -50,8 +55,12 @@ export default function Login() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Email */}
           <div className="relative">
-            <Mail size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Mail
+              size={20}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
             <input
               type="email"
               name="email"
@@ -63,8 +72,13 @@ export default function Login() {
               aria-label="Email"
             />
           </div>
+
+          {/* Password */}
           <div className="relative">
-            <Lock size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Lock
+              size={20}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
             <input
               type="password"
               name="password"
@@ -76,18 +90,21 @@ export default function Login() {
               aria-label="Password"
             />
           </div>
+
+          {/* Login Button */}
           <button
-            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 active:scale-95"
             type="submit"
+            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 active:scale-95"
           >
-            <LogIn size={20} /> Login
+            <LogIn size={20} />
+            Login
           </button>
         </form>
 
         <p className="text-center text-gray-600 mt-6">
           Don't have an account?{" "}
           <button
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/signup")} // ✅ fixed route
             className="text-blue-600 font-semibold hover:underline transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded"
           >
             Sign Up

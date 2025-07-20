@@ -1,23 +1,29 @@
 import { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/Authcontext";
 
 export default function ProtectedRoute({ children, role }) {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
 
-  // Get user from context or fallback to localStorage
+  // Get user from context or localStorage (fallback)
   const currentUser = user || JSON.parse(localStorage.getItem("user"));
 
-  // If user is not logged in
+  // 🔒 Not logged in
   if (!currentUser || !currentUser.id) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  // If specific role is required and doesn't match
+  // 🔒 Blocked user
+  if (currentUser.isBlock === true) {
+    return <Navigate to="/blocked" replace />;
+  }
+
+  // 🔒 Role mismatch
   if (role && currentUser.role !== role) {
     return <Navigate to="/" replace />;
   }
 
-  // Authenticated and role matched
+  // ✅ All checks passed
   return children;
 }
